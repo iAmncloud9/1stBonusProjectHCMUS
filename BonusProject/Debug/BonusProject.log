@@ -1,0 +1,11 @@
+﻿  func.cpp
+D:\HCMUS\2022-2023\2nd\KTLT\LT\Bonus_Project\BonusProject\BonusProject\func.cpp(501,20): warning C4018: '<': signed/unsigned mismatch
+D:\HCMUS\2022-2023\2nd\KTLT\LT\Bonus_Project\BonusProject\BonusProject\func.cpp(520,20): warning C4018: '<': signed/unsigned mismatch
+D:\HCMUS\2022-2023\2nd\KTLT\LT\Bonus_Project\BonusProject\BonusProject\func.cpp(1348,10): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+D:\HCMUS\2022-2023\2nd\KTLT\LT\Bonus_Project\BonusProject\BonusProject\func.cpp(1424,10): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+D:\HCMUS\2022-2023\2nd\KTLT\LT\Bonus_Project\BonusProject\BonusProject\func.cpp(552): warning C4715: 'checkStuInClass': not all control paths return a value
+D:\HCMUS\2022-2023\2nd\KTLT\LT\Bonus_Project\BonusProject\BonusProject\func.cpp(839): warning C4715: 'reClass': not all control paths return a value
+D:\HCMUS\2022-2023\2nd\KTLT\LT\Bonus_Project\BonusProject\BonusProject\func.cpp(853): warning C4715: 'firstYearStu': not all control paths return a value
+D:\HCMUS\2022-2023\2nd\KTLT\LT\Bonus_Project\BonusProject\BonusProject\func.cpp(1321): warning C4715: 'reCourse': not all control paths return a value
+D:\HCMUS\2022-2023\2nd\KTLT\LT\Bonus_Project\BonusProject\BonusProject\func.cpp(1420): warning C4715: 'checkStuInCourse': not all control paths return a value
+  BonusProject.vcxproj -> D:\HCMUS\2022-2023\2nd\KTLT\LT\Bonus_Project\BonusProject\Debug\BonusProject.exe
