@@ -28,12 +28,14 @@ struct SinhVien {
 	string pass;
 	string position;
 	string grade;
-	string name;
+	string fname;
+	string lname;
 	string id;
 	string clas;
 	string birthday;
 	string gender;
 	string credit;
+	string sid;
 };
 
 struct Login {

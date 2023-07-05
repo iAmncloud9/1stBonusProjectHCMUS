@@ -109,3 +109,4 @@ void removeStudent(result& a, string str, string cid, string id);
 //								DANH CHO STUDENT
 void viewListCourse(logstu a, board b, list c, string tk);
 void viewScore(logstu a, result b, string tk);
+void registerCourse(logstu& a, list& b, result& c, string str, string cid, string tk);

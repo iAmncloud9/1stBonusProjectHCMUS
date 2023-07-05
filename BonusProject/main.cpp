@@ -606,10 +606,10 @@ int main() {
 					system("cls");
 					f.open("student.csv", ios::in);
 					cout << setw(61) << "--------LOGIN--------" << endl;
-					cout << "USER NAME: ";
 					cin.ignore();
+					cout << "USER NAME: ";
 					getline(cin, tk);
-					cout << "PASSWORK: ";
+					cout << "PASSWORD: ";
 					getline(cin, mk);
 					checklogin = loginStudent(f, tk, mk);
 					if (checklogin == 1) {
@@ -640,7 +640,45 @@ int main() {
 									choose(op);
 									switch (op) {
 									case 1:												// 2.1.2.1. Register Course
-										//Dang ki khoa hoc
+										system("cls");
+										f.open("course.csv", ios::in);
+										readFileCourse(f, course);
+										f.close();
+										outputCourse(course);
+										cin.ignore();
+										cout << "SELECT COURSE: "; getline(cin, str);
+										cout << "ENTER COURSE ID: "; getline(cin, p);
+										if (reCourse(course, str, p)) {
+											f.open("list_student.csv", ios::in);
+											readFileStudent(f, stu);
+											f.close();
+											f.open("student_score.csv", ios::in);
+											readFileScore(f, score);
+											f.close();
+											f.open("student.csv", ios::in);
+											readAllFileStudent(f, doc);
+											f.close();
+											registerCourse(doc, stu, score, str, p, tk);
+											g.open("list_student.csv", ios::out);
+											outputStudentinFile(g, stu);
+											g.close();
+											g.open("student_score.csv", ios::out);
+											outputFileScore(g, score);
+											g.close();
+											g.open("student.csv", ios::out);
+											ouputFileStudent(g, doc);
+											g.close();
+											clearList(stu);
+											clearResult(score);
+											clearLogin(doc);
+										}
+										else {
+											cout << "THIS COURSE IS NOT EXITS." << endl;
+										}
+										system("pause");
+										system("cls");
+										in_course_stu_menu();
+										clearBoard(course);
 										break;
 									case 2:												// 2.1.2.2. View List Course
 										// Xem danh sach khoa hoc 

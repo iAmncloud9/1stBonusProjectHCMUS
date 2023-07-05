@@ -47,12 +47,14 @@ void readAccountStudent(ifstream& f, SinhVien& log) {
 	getline(f, log.pass, ',');
 	getline(f, log.position, ',');
 	getline(f, log.grade, ',');
-	getline(f, log.name, ',');
+	getline(f, log.fname, ',');
+	getline(f, log.lname, ',');
 	getline(f, log.id, ',');
 	getline(f, log.clas, ',');
 	getline(f, log.birthday, ',');
 	getline(f, log.gender, ',');
-	getline(f, log.credit, '\n');
+	getline(f, log.credit, ',');
+	getline(f, log.sid, '\n');
 }
 
 // Kiem tra tai khoan dang nhap Student

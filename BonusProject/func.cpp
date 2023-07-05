@@ -16,7 +16,7 @@ void outputStaffInformation(Staff log) {
 
 // Ham xuat thong tin Student
 void outputStudentInformation(SinhVien log) {
-	cout << "NAME: " << log.name << endl;
+	cout << "NAME: " << log.lname << " " << log.fname << endl;
 	cout << "POSITION: " << log.position << endl;
 	cout << "GRADE: " << log.grade << endl;
 	cout << "STUDENT ID: " << log.id << endl;
@@ -201,12 +201,12 @@ void ouputFileStaff(ofstream& f, node a) {
 
 // Ghi thong tin vao file cho Student
 void ouputFileStudent(ofstream& f, logstu a) {
-	logstu p = a->next;
+	logstu p = a;
 	while (p->next != NULL) {
-		f << p->infor.acc << "," << p->infor.pass << "," << p->infor.position << "," << p->infor.grade << "," << p->infor.name << "," << p->infor.id << "," << p->infor.clas << "," << p->infor.birthday << "," << p->infor.gender << "," << p->infor.credit << endl;
+		f << p->infor.acc << "," << p->infor.pass << "," << p->infor.position << "," << p->infor.grade << "," << p->infor.fname << "," << p->infor.lname << "," << p->infor.id << "," << p->infor.clas << "," << p->infor.birthday << "," << p->infor.gender << "," << p->infor.credit << "," << p->infor.sid << endl;
 		p = p->next;
 	}
-	f << p->infor.acc << "," << p->infor.pass << "," << p->infor.position << "," << p->infor.grade << "," << p->infor.name << "," << p->infor.id << "," << p->infor.clas << "," << p->infor.birthday << "," << p->infor.gender << "," << p->infor.credit;
+	f << p->infor.acc << "," << p->infor.pass << "," << p->infor.position << "," << p->infor.grade << "," << p->infor.fname << "," << p->infor.lname << "," << p->infor.id << "," << p->infor.clas << "," << p->infor.birthday << "," << p->infor.gender << "," << p->infor.credit << p->infor.sid;
 }
 
 // Ham dang ki tai khoan cho Staff
@@ -275,12 +275,14 @@ void registerStudentAccount(logstu& a, list b, base& c, string position) {
 	string tk;
 	string mk;
 	string checkmk;
-	string ten;
+	string ten1;
+	string ten2;
 	string id;
 	string grade;
 	string cla;
 	string birth;
 	string gen;
+	string sid;
 	int check = 1;
 	int dem = 0;
 	int count = 0;
@@ -293,9 +295,11 @@ void registerStudentAccount(logstu& a, list b, base& c, string position) {
 		cout << "STUDENT ID: "; getline(cin, id);
 		if (checkStuID(b, id)) {
 			while (check) {
-				cout << "FULL NAME: "; getline(cin, ten);
-				checkName(ten);
-				if (checkStuName(ten)) {
+				cout << "FIRST NAME: "; getline(cin, ten1);
+				cout << "FULL NAME: "; getline(cin, ten2);
+				checkName(ten1);
+				checkName(ten2);
+				if (checkStuName(ten1) && checkStuName(ten2)) {
 					cout << "GRADE: "; getline(cin, grade);
 					cout << endl << "==========ACCOUNT INFORMATION==========" << endl;
 					while (check) {
@@ -324,21 +328,32 @@ void registerStudentAccount(logstu& a, list b, base& c, string position) {
 														cout << "GENDER (MALE/FEMALE): "; getline(cin, gen);
 														checkName(gen);
 														if (gen == "Female" || gen == "Male") {
-															cout << endl << "REGISTER SUCCESSFULLY!" << endl;
-															check = 0;
-															SinhVien n;
-															n.acc = tk;
-															n.pass = mk;
-															n.position = position.substr(0);
-															n.name = ten;
-															n.grade = grade;
-															n.id = id;
-															n.clas = cla;
-															n.birthday = birth;
-															n.gender = gen;
-															n.credit = "0";
-															logstu temp = makeAccountStudent(n);
-															addAccountStudent(a, temp);
+															while (check) {
+																cout << "SOCIAL ID: "; getline(cin, sid);
+																if (checkSocialId(b, sid)) {
+																	cout << endl << "REGISTER SUCCESSFULLY!" << endl;
+																	check = 0;
+																	SinhVien n;
+																	n.acc = tk;
+																	n.pass = mk;
+																	n.position = position.substr(0);
+																	n.fname = ten1;
+																	n.lname = ten2;
+																	n.grade = grade;
+																	n.id = id;
+																	n.clas = cla;
+																	n.birthday = birth;
+																	n.gender = gen;
+																	n.credit = "0";
+																	n.sid = sid;
+																	logstu temp = makeAccountStudent(n);
+																	addAccountStudent(a, temp);
+																}
+																else {
+																	cout << "THIS ID ALREADY EXISTS." << endl;
+																	check = 1;
+																}
+															}
 														}
 														else {
 															cout << "INVALID" << endl;
@@ -1579,5 +1594,43 @@ void viewScore(logstu a, result b, string tk) {
 			}
 		}
 		cout << right;
+	}
+}
+
+// Ham dang ky khoa hoc
+void registerCourse(logstu& a, list& b, result& c, string str, string cid, string tk) {
+	int n;
+	for (logstu p = a; p != NULL; p = p->next) {
+		if (p->infor.acc.compare(tk) == 0) {
+			n = atof(p->infor.credit.c_str());
+			if (n >= 5) {
+				cout << endl << "YOU CAN'T REGIST MORE COURSE!" << endl;
+			}
+			else {
+				n++;
+				p->infor.credit = to_string(n);
+				Score diem;
+				sv infor;
+				diem.course = str;
+				diem.cid = cid;
+				diem.id = p->infor.id;
+				diem.fname = p->infor.fname;
+				diem.lname = p->infor.lname;
+				infor.course = str;
+				infor.cid = cid;
+				infor.stuclass = p->infor.clas;
+				infor.id = p->infor.id;
+				infor.fname = p->infor.fname;
+				infor.lname = p->infor.lname;
+				infor.gender = p->infor.gender;
+				infor.birth = p->infor.birthday;
+				infor.scid = p->infor.sid;
+				result temp1 = makeResult(diem);
+				list temp2 = makeList(infor);
+				addInResult(c, temp1);
+				addInforStudent(b, temp2);
+				cout << endl << endl << "SUCCESSFULLY" << endl;
+			}
+		}
 	}
 }
