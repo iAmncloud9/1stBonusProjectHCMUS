@@ -27,8 +27,9 @@ typedef struct List* list;
 
 struct Class {
 	string name;
-	string number;
 	string scyear;
+	string max;
+	string number;
 };
 
 struct Base {

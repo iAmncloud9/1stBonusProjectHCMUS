@@ -1,4 +1,7 @@
-account,pass,position,name,id,class,birthday,gender,number of credits
-nvc2004,1234,Student,Nguyen Van Chien,22120037,22CTT2,24/8/2004,Female,1
-abcd,1234,Student,Nguyen Van B,220002,22CTT2,2/2/2004,Female,1
-nty123,1234,Student,Nguyen Thi Y,22111111,22CTT2,12/12/2004,Male,0
+account,pass,position,grade,name,id,class,birthday,gender,number of credits
+nvc2004,1234,Student,CSC,Nguyen Van Chien,22120037,22CTT2,24/8/2004,Female,1
+abcd,1234,Student,CSC,Nguyen Van B,220002,22CTT2,2/2/2004,Female,1
+nty123,1234,Student,CSC,Nguyen Thi Y,22111111,22CTT2,12/12/2004,Male,0
+ttb123,1234,Student,CSC,Trinh Thang Binh,22150000,22CTT6,3/3/2004,Female,0
+nvp123,1234,Student,CSC,Nguyen Van Phuc,22160000,22CTT3,5/5/2004,Female,0
+abcd123,1234,Student,CSC,Abcd,22170000,22CTT2,7/7/2004,Female,0

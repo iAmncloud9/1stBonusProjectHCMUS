@@ -27,7 +27,7 @@ void changePasswordStudent(logstu& a, string tk);
 void ouputFileStaff(ofstream& f, node a);										// Ham ghi thong tin trong danh sach vao File
 void ouputFileStudent(ofstream& f, logstu a);	
 void registerStaffAccount(node& a, string position);							// Ham dang ki tai khoan
-void registerStudentAccount(logstu& a, list b, base c, string position);
+void registerStudentAccount(logstu& a, list b, base& c, string position);
 void clearNode(node& a);
 void clearLogin(logstu& a);
 

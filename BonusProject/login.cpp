@@ -46,6 +46,7 @@ void readAccountStudent(ifstream& f, SinhVien& log) {
 	getline(f, log.acc, ',');
 	getline(f, log.pass, ',');
 	getline(f, log.position, ',');
+	getline(f, log.grade, ',');
 	getline(f, log.name, ',');
 	getline(f, log.id, ',');
 	getline(f, log.clas, ',');

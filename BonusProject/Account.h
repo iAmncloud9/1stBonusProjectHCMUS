@@ -27,6 +27,7 @@ struct SinhVien {
 	string acc;
 	string pass;
 	string position;
+	string grade;
 	string name;
 	string id;
 	string clas;

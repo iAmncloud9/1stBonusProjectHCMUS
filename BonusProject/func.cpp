@@ -18,6 +18,7 @@ void outputStaffInformation(Staff log) {
 void outputStudentInformation(SinhVien log) {
 	cout << "NAME: " << log.name << endl;
 	cout << "POSITION: " << log.position << endl;
+	cout << "GRADE: " << log.grade << endl;
 	cout << "STUDENT ID: " << log.id << endl;
 	cout << "GENDER: " << log.gender << endl;
 	cout << "DAY OF BIRTH: " << log.birthday << endl;
@@ -202,10 +203,10 @@ void ouputFileStaff(ofstream& f, node a) {
 void ouputFileStudent(ofstream& f, logstu a) {
 	logstu p = a->next;
 	while (p->next != NULL) {
-		f << p->infor.acc << "," << p->infor.pass << "," << p->infor.position << "," << p->infor.name << "," << p->infor.id << "," << p->infor.clas << "," << p->infor.birthday << "," << p->infor.gender << "," << p->infor.credit << endl;
+		f << p->infor.acc << "," << p->infor.pass << "," << p->infor.position << "," << p->infor.grade << "," << p->infor.name << "," << p->infor.id << "," << p->infor.clas << "," << p->infor.birthday << "," << p->infor.gender << "," << p->infor.credit << endl;
 		p = p->next;
 	}
-	f << p->infor.acc << "," << p->infor.pass << "," << p->infor.position << "," << p->infor.name << "," << p->infor.id << "," << p->infor.clas << "," << p->infor.birthday << "," << p->infor.gender << "," << p->infor.credit;
+	f << p->infor.acc << "," << p->infor.pass << "," << p->infor.position << "," << p->infor.grade << "," << p->infor.name << "," << p->infor.id << "," << p->infor.clas << "," << p->infor.birthday << "," << p->infor.gender << "," << p->infor.credit;
 }
 
 // Ham dang ki tai khoan cho Staff
@@ -239,9 +240,9 @@ void registerStaffAccount(node& a, string position) {
 					}
 				}
 				if (count == dem) {
-					cout << "PASSWORK: "; getline(cin, mk);
+					cout << "PASSWORD: "; getline(cin, mk);
 					while (check) {
-						cout << "CONFIRM PASSWORK: "; getline(cin, checkmk);
+						cout << "CONFIRM PASSWORD: "; getline(cin, checkmk);
 						if (checkmk.compare(mk) == 0) {
 							cout << "WORK PLACE: "; getline(cin, diadiem);
 							cout << endl << "REGISTER SUCCESSFULLY!" << endl;
@@ -270,12 +271,13 @@ void registerStaffAccount(node& a, string position) {
 }
 
 // Ham dang ki tai khoan cho Student
-void registerStudentAccount(logstu& a, list b, base c, string position) {
+void registerStudentAccount(logstu& a, list b, base& c, string position) {
 	string tk;
 	string mk;
 	string checkmk;
 	string ten;
 	string id;
+	string grade;
 	string cla;
 	string birth;
 	string gen;
@@ -294,7 +296,8 @@ void registerStudentAccount(logstu& a, list b, base c, string position) {
 				cout << "FULL NAME: "; getline(cin, ten);
 				checkName(ten);
 				if (checkStuName(ten)) {
-					cout << endl << "ACCOUNT INFORMATION" << endl;
+					cout << "GRADE: "; getline(cin, grade);
+					cout << endl << "==========ACCOUNT INFORMATION==========" << endl;
 					while (check) {
 						cout << "USER NAME: "; getline(cin, tk);
 						for (logstu t = a->next; t != NULL; t = t->next) {
@@ -307,9 +310,9 @@ void registerStudentAccount(logstu& a, list b, base c, string position) {
 							}
 						}
 						if (count == dem) {
-							cout << "PASSWORK: "; getline(cin, mk);
+							cout << "PASSWORD: "; getline(cin, mk);
 							while (check) {
-								cout << "CONFIRM PASSWORK: "; getline(cin, checkmk);
+								cout << "CONFIRM PASSWORD: "; getline(cin, checkmk);
 								if (checkmk.compare(mk) == 0) {
 									while (check) {
 										cout << "CLASS: "; getline(cin, cla);
@@ -328,6 +331,7 @@ void registerStudentAccount(logstu& a, list b, base c, string position) {
 															n.pass = mk;
 															n.position = position.substr(0);
 															n.name = ten;
+															n.grade = grade;
 															n.id = id;
 															n.clas = cla;
 															n.birthday = birth;
@@ -623,7 +627,7 @@ void addStudentFromFile() {
 
 
 
-}
+}   // (Chua hoan thanh)
 
 // Ghi List vao File
 void outputStudentinFile(ofstream& f, list a) {
@@ -786,6 +790,7 @@ void sortClass(base& a) {
 void readClass(ifstream& f, Class& infor) {
 	getline(f, infor.name, ',');
 	getline(f, infor.scyear, ',');
+	getline(f, infor.max, ',');
 	getline(f, infor.number, '\n');
 }
 
@@ -810,7 +815,7 @@ void outputClass(base a) {
 		cout << "NO" << setw(14) << "CLASS" << setw(22) << "SCHOOL YEAR" << setw(27) << "STUDENT IN CLASS" << endl;
 		int stt = 1;
 		for (base t = a->next; t != NULL; t = t->next) {
-			cout << left << setw(11) << stt << setw(17) << t->data.name << setw(29) << t->data.scyear << t->data.number << endl;
+			cout << left << setw(11) << stt << setw(17) << t->data.name << setw(29) << t->data.scyear << t->data.number << "/" << t->data.max << endl;
 			stt++;
 		}
 		cout << right;
@@ -867,7 +872,7 @@ int checkClass(string str, base a) {
 void outputFileClass(ofstream& f, base a) {
 	base p = a;
 	while (p->next != NULL) {
-		f << p->data.name << "," << p->data.scyear << "," << p->data.number << endl;
+		f << p->data.name << "," << p->data.scyear << "," << p->data.max << "," << p->data.number << endl;
 		p = p->next;
 	}
 	f << p->data.name << "," << p->data.scyear << "," << p->data.number;
@@ -879,8 +884,9 @@ int addClass(base& a, string str, string name) {
 	int check;
 	add.scyear = str;
 	add.name = name;
+	add.number = "0";
 	if (checkClass(add.name, a) == 0) {
-		cout << "MAX STUDENT: "; getline(cin, add.number);
+		cout << "MAX STUDENT: "; getline(cin, add.max);
 		base temp = makeBase(add);
 		addInClass(a, temp);
 		check = 1;
@@ -919,17 +925,6 @@ void outputStudentofClass(list a, string b) {
 	}
 }
 
-//void findStudent(base a, list b, int& sl) {
-//	int dem = 0;
-//	for (base p = a->next; p != NULL; p = p->next) {
-//		dem++;
-//		if (dem == sl) {
-//			string find = p->data.name;
-//			outputStudentofClass(b, find);
-//		}
-//	}
-//}
-
 // Xuat thong tin khoa hoc cua mot lop
 void outputCourseofClass(board a, string b) {
 	int stt = 1;
@@ -957,17 +952,6 @@ void outputCourseofClass(board a, string b) {
 		cout << endl << "THIS CLASS HAS NO COURSE." << endl;
 	}
 }
-
-//void findCourse(board a, base b, int& sl) {
-//	int dem = 0;
-//	for (base p = b->next; p != NULL; p = p->next) {
-//		dem++;
-//		if (dem == sl) {
-//			string find = p->data.name;
-//			outputCourseofClass(a, find);
-//		}
-//	}
-//}
 
 // Lam rong Base
 void clearBase(base& a) {
@@ -1190,9 +1174,10 @@ bool checkWeek(string day) {
 	}
 }
 
-// Them lop hoc moi vao Board
+// Them khoa hoc moi vao Board
 void addCourse(board& a) {
 	Course add;
+	add.number = "50";
 	int check = 1;
 	cin.ignore();
 	while (check) {
@@ -1220,7 +1205,6 @@ void addCourse(board& a) {
 												if (checkWeek(add.day)) {
 													cout << "NUMBER OF CREDITS: "; getline(cin, add.credit);
 													cout << "CLASS: "; getline(cin, add.clas);
-													cout << "MAX STUDENT: "; getline(cin, add.number);
 													cout << "TEACHER: "; getline(cin, add.lecturer);
 													cout << "ROOM: "; getline(cin, add.room);
 													board temp = makeBoard(add);
