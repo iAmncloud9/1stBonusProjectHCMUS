@@ -50,7 +50,7 @@ bool checkSocialId(list a, string id);
 bool checkStuName(string name);
 void checkName(string& a);
 bool checkStuInClass(base a, string str);
-void addStudentInClass(list& a, string str);
+void addStudentInClass(list& a, base& b, string str);
 void addStudentFromFile();
 void addStudentToCourse(list& a, base b, result& c, string str, string id);
 void removeStudentFromCourse(list& a, string str, string cid, string id);

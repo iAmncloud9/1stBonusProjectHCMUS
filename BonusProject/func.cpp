@@ -556,7 +556,7 @@ bool checkStuInClass(base a, string str) {
 }
 
 // Them mot sinh vien vao lop hoc
-void addStudentInClass(list& a, string str) {
+void addStudentInClass(list& a, base& b, string str) {
 	sv temp;
 	temp.stuclass = str;
 	int check = 1;
@@ -585,6 +585,13 @@ void addStudentInClass(list& a, string str) {
 												list tmp = makeList(temp);
 												addInforStudent(a, tmp);
 												cout << endl << "ADD STUDENT SUCCESSFULLY!" << endl;
+												for (base them = b; them != NULL; them = them->next) {
+													if (them->data.name.compare(temp.stuclass) == 0) {
+														int n = atof(them->data.number.c_str());
+														n++;
+														them->data.number = to_string(n);
+													}
+												}
 											}
 											else {
 												check = 1;
@@ -815,7 +822,7 @@ void outputClass(base a) {
 		cout << "NO" << setw(14) << "CLASS" << setw(22) << "SCHOOL YEAR" << setw(27) << "STUDENT IN CLASS" << endl;
 		int stt = 1;
 		for (base t = a->next; t != NULL; t = t->next) {
-			cout << left << setw(11) << stt << setw(17) << t->data.name << setw(29) << t->data.scyear << t->data.number << "/" << t->data.max << endl;
+			cout << left << setw(11) << stt << setw(17) << t->data.name << setw(27) << t->data.scyear << t->data.number << "/" << t->data.max << endl;
 			stt++;
 		}
 		cout << right;

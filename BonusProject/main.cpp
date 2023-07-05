@@ -100,14 +100,15 @@ int main() {
 												system("pause");
 												system("cls");
 												class_sta_menu();
+												clearBase(cla);
 												break;
 											case 2:											// 1.1.2.1.2. My Class
 												system("cls");
 												in_class_sta_menu();
 												f.open("class.csv", ios::in);
 												readFileClass(f, cla);
-												clearBase(cla);
 												f.close();
+												clearBase(cla);
 												while (a) {
 													system("cls");
 													f.open("class.csv", ios::in);
@@ -115,6 +116,7 @@ int main() {
 													//sortClass(cla);
 													outputClass(cla);
 													f.close();
+													clearBase(cla);
 													cout << endl << endl;
 													in_class_sta_menu();
 													choose(op);
@@ -174,6 +176,7 @@ int main() {
 														f.close();
 														if (reClass(cla, str)) {
 															if (firstYearStu(cla, str)) {
+																clearBase(cla);
 																system("cls");
 																update_class_sta_menu();
 																while (a) {
@@ -184,11 +187,21 @@ int main() {
 																		f.open("list_student.csv", ios::in);
 																		readFileStudent(f, stu);
 																		f.close();
-																		addStudentInClass(stu, str);
+																		f.open("class.csv", ios::in);
+																		readFileClass(f, cla);
+																		f.close();
+																		addStudentInClass(stu, cla, str);
 																		g.open("list_student.csv", ios::out);
 																		outputStudentinFile(g, stu);
 																		g.close();
+																		g.open("class.csv", ios::out);
+																		outputFileClass(g, cla);
+																		g.close();
 																		clearList(stu);
+																		clearBase(cla);
+																		system("pause");
+																		system("cls");
+																		update_class_sta_menu();
 																		break;
 																	case 2:								// 1.1.2.1.2.3.2. Add Student From File
 																		// Them sinh vien theo file
@@ -218,7 +231,6 @@ int main() {
 															cout << "CAN'T FIND THIS CLASS." << endl;
 															system("pause");
 														}
-														clearBase(cla);
 														a = 1;
 														break;
 													case 4:										// 1.1.2.1.2.4. Back
