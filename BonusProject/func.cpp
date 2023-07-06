@@ -132,22 +132,24 @@ void changePasswordStaff(node& a, string tk) {
 			int check = 1;
 			cin.ignore();
 			while (check) {
-				cout << "OLD PASSWORK: "; getline(cin, oldpass);
+				cout << endl << "OLD PASSWORD: "; getline(cin, oldpass);
 				if (oldpass.compare(p->account.pass) == 0) {
-					cout << "NEW PASSWORK: "; getline(cin, newpass);
+					cout << "NEW PASSWORD: "; getline(cin, newpass);
 					while (check) {
-						cout << "CONFIRM PASSWORK: "; getline(cin, checkpass);
+						cout << "CONFIRM PASSWORD: "; getline(cin, checkpass);
 						if (checkpass.compare(newpass) == 0) {
 							check = 0;
 							p->account.pass = newpass.substr(0);
 						}
 						else {
 							cout << endl << "INCORRECT!" << endl << endl;
+							check = 1;
 						}
 					}
 				}
 				else {
 					cout << endl << "INCORRECT!" << endl << endl;
+					check = 1;
 				}
 			}
 		}
@@ -166,11 +168,11 @@ void changePasswordStudent(logstu& a, string tk) {
 			int check = 1;
 			cin.ignore();
 			while (check) {
-				cout << "OLD PASSWORK: "; getline(cin, oldpass);
+				cout << "OLD PASSWORD: "; getline(cin, oldpass);
 				if (oldpass.compare(p->infor.pass) == 0) {
-					cout << "NEW PASSWORK: "; getline(cin, newpass);
+					cout << "NEW PASSWORD: "; getline(cin, newpass);
 					while (check) {
-						cout << "CONFIRM PASSWORK: "; getline(cin, checkpass);
+						cout << "CONFIRM PASSWORD: "; getline(cin, checkpass);
 						if (checkpass.compare(newpass) == 0) {
 							check = 0;
 							p->infor.pass = newpass.substr(0);
@@ -191,7 +193,7 @@ void changePasswordStudent(logstu& a, string tk) {
 
 // Ghi thong tin vao file cho Staff
 void ouputFileStaff(ofstream& f, node a) {
-	node p = a->next;
+	node p = a;
 	while (p->next != NULL) {
 		f << p->account.acc << "," << p->account.pass << "," << p->account.position << "," << p->account.name << "," << p->account.place << endl;
 		p = p->next;
@@ -206,7 +208,7 @@ void ouputFileStudent(ofstream& f, logstu a) {
 		f << p->infor.acc << "," << p->infor.pass << "," << p->infor.position << "," << p->infor.grade << "," << p->infor.fname << "," << p->infor.lname << "," << p->infor.id << "," << p->infor.clas << "," << p->infor.birthday << "," << p->infor.gender << "," << p->infor.credit << "," << p->infor.sid << endl;
 		p = p->next;
 	}
-	f << p->infor.acc << "," << p->infor.pass << "," << p->infor.position << "," << p->infor.grade << "," << p->infor.fname << "," << p->infor.lname << "," << p->infor.id << "," << p->infor.clas << "," << p->infor.birthday << "," << p->infor.gender << "," << p->infor.credit << p->infor.sid;
+	f << p->infor.acc << "," << p->infor.pass << "," << p->infor.position << "," << p->infor.grade << "," << p->infor.fname << "," << p->infor.lname << "," << p->infor.id << "," << p->infor.clas << "," << p->infor.birthday << "," << p->infor.gender << "," << p->infor.credit << "," << p->infor.sid;
 }
 
 // Ham dang ki tai khoan cho Staff
@@ -283,6 +285,7 @@ void registerStudentAccount(logstu& a, list b, base& c, string position) {
 	string birth;
 	string gen;
 	string sid;
+	string credit = "0";
 	int check = 1;
 	int dem = 0;
 	int count = 0;
@@ -344,7 +347,7 @@ void registerStudentAccount(logstu& a, list b, base& c, string position) {
 																	n.clas = cla;
 																	n.birthday = birth;
 																	n.gender = gen;
-																	n.credit = "0";
+																	n.credit = credit.c_str();
 																	n.sid = sid;
 																	logstu temp = makeAccountStudent(n);
 																	addAccountStudent(a, temp);
@@ -646,7 +649,7 @@ void addStudentInClass(list& a, base& b, string str) {
 
 // Ghi List vao File
 void outputStudentinFile(ofstream& f, list a) {
-	list p = a->next;
+	list p = a;
 	while (p->next != NULL) {
 		f << p->student.course << "," << p->student.cid << "," << p->student.stuclass << "," << p->student.id << "," << p->student.fname << "," << p->student.lname << "," << p->student.gender << "," << p->student.birth << "," << p->student.scid << endl;
 		p = p->next;
@@ -834,6 +837,7 @@ void outputClass(base a) {
 			stt++;
 		}
 		cout << right;
+		cout << endl << endl << endl;
 	}
 }
 
@@ -1598,7 +1602,7 @@ void addStudentFromFile(add a, list& b, base& c, string str) {
 	}
 }
 
-// Lam rong Result
+// Lam rong Add
 void clearAdd(add& a) {
 	add p = a;
 	while (p != NULL) {
@@ -1639,10 +1643,10 @@ void viewListCourse(logstu a, board b, list c, string tk) {
 	else {
 		cout << setw(60) << "==========YOUR COURSE==========" << endl;
 		cout << "NO" << setw(14) << "COURSE ID" << setw(12) << "CREDITS" << setw(10) << "CLASS" << setw(18) << "COURSE NAME" << setw(16) << "DAY START" << setw(13) << "DAY END" << setw(17) << "TIME START" << setw(15) << "TIME END" << setw(16) << "DAY OF WEEK" << setw(17) << "TEACHER" << setw(20) << "ROOM" << endl;
-		for (list t = c; t != NULL; t = t->next) {
-			if (t->student.id.compare(fid) == 0) {
+		for (list r = c; r != NULL; r = r->next) {
+			if (r->student.id.compare(fid) == 0) {
 				for (board q = b; q != NULL; q = q->next) {
-					if (t->student.course.compare(q->course.name) == 0 && t->student.cid.compare(q->course.id) == 0) {
+					if (r->student.course.compare(q->course.name) == 0 && r->student.cid.compare(q->course.id) == 0) {
 						cout << left << setw(10) << stt << setw(14) << q->course.id << setw(9) << q->course.credit << setw(12) << q->course.clas << setw(18) << q->course.name << setw(15) << q->course.daystart << setw(17) << q->course.dayend << setw(16) << q->course.timestart << setw(14) << q->course.timeend << setw(15) << q->course.day << setw(26) << q->course.lecturer << q->course.room << endl;
 					}
 				}
