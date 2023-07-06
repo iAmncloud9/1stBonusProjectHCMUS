@@ -1,12 +1,1 @@
 ﻿Course,Course ID,Student ID,First Name,Last Name,OtherMark,Midterm Mark,Final Mark
-ProTech,CSC,220001,A,Nguyen Van,7,8,9
-ProTech,CSC,220002,B,Nguyen Van,7,8,9
-ProTech,CSC,220003,C,Tran Minh,7,8,9
-Calculus,VTP,22120037,Chien,Nguyen Van,9,9,10
-ProTech,CSC,22120037,Chien,Nguyen Van,9,9.5,10
-ProTech,CSC,22120000,Minh,Hoang Tien,7,8,9
-Calculus,VTP,220009,Ngan,Chau Thi Tuyet,8,8.8,9.5
-Calculus,VTP,22110000,Ngan,Chau Thi Tuyet,,,
-ProTech,CSC,22120037,Chien,Nguyen Van,,,
-Calculus 2,VTP2,22120037,Chien,Nguyen Van,,,
-CN Va MT,MTH,22120037,Chien,Nguyen Van,,,

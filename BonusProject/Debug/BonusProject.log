@@ -1,18 +1,2 @@
-﻿  func.cpp
-D:\HCMUS\2022-2023\2nd\KTLT\LT\Bonus_Project\BonusProject\BonusProject\func.cpp(520,20): warning C4018: '<': signed/unsigned mismatch
-D:\HCMUS\2022-2023\2nd\KTLT\LT\Bonus_Project\BonusProject\BonusProject\func.cpp(539,20): warning C4018: '<': signed/unsigned mismatch
-D:\HCMUS\2022-2023\2nd\KTLT\LT\Bonus_Project\BonusProject\BonusProject\func.cpp(605,21): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
-D:\HCMUS\2022-2023\2nd\KTLT\LT\Bonus_Project\BonusProject\BonusProject\func.cpp(1354,10): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-D:\HCMUS\2022-2023\2nd\KTLT\LT\Bonus_Project\BonusProject\BonusProject\func.cpp(1430,10): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-D:\HCMUS\2022-2023\2nd\KTLT\LT\Bonus_Project\BonusProject\BonusProject\func.cpp(1599,11): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
-D:\HCMUS\2022-2023\2nd\KTLT\LT\Bonus_Project\BonusProject\BonusProject\func.cpp(1700,12): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-  Generating Code...
-D:\HCMUS\2022-2023\2nd\KTLT\LT\Bonus_Project\BonusProject\BonusProject\func.cpp(571): warning C4715: 'checkStuInClass': not all control paths return a value
-D:\HCMUS\2022-2023\2nd\KTLT\LT\Bonus_Project\BonusProject\BonusProject\func.cpp(866): warning C4715: 'reClass': not all control paths return a value
-D:\HCMUS\2022-2023\2nd\KTLT\LT\Bonus_Project\BonusProject\BonusProject\func.cpp(880): warning C4715: 'firstYearStu': not all control paths return a value
-D:\HCMUS\2022-2023\2nd\KTLT\LT\Bonus_Project\BonusProject\BonusProject\func.cpp(1327): warning C4715: 'reCourse': not all control paths return a value
-D:\HCMUS\2022-2023\2nd\KTLT\LT\Bonus_Project\BonusProject\BonusProject\func.cpp(1426): warning C4715: 'checkStuInCourse': not all control paths return a value
-  Compiling...
-  main.cpp
-  Generating Code...
+﻿  Menu.cpp
   BonusProject.vcxproj -> D:\HCMUS\2022-2023\2nd\KTLT\LT\Bonus_Project\BonusProject\Debug\BonusProject.exe
