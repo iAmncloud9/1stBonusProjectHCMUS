@@ -142,12 +142,12 @@ void changePasswordStaff(node& a, string tk) {
 							p->account.pass = newpass.substr(0);
 						}
 						else {
-							cout << "INCORRECT!" << endl;
+							cout << endl << "INCORRECT!" << endl << endl;
 						}
 					}
 				}
 				else {
-					cout << "INCORRECT!" << endl;
+					cout << endl << "INCORRECT!" << endl << endl;
 				}
 			}
 		}
@@ -176,12 +176,12 @@ void changePasswordStudent(logstu& a, string tk) {
 							p->infor.pass = newpass.substr(0);
 						}
 						else {
-							cout << "INCORRECT!" << endl;
+							cout << endl << "INCORRECT!" << endl << endl;
 						}
 					}
 				}
 				else {
-					cout << "INCORRECT!" << endl;
+					cout << endl << "INCORRECT!" << endl << endl;
 				}
 			}
 		}
@@ -232,7 +232,7 @@ void registerStaffAccount(node& a, string position) {
 				cout << "USER NAME: "; getline(cin, tk);
 				for (node t = a->next; t != NULL; t = t->next) {
 					if (tk.compare(t->account.acc) == 0) {
-						cout << "THIS USER NAME HAS ALREADY EXIST!" << endl;
+						cout << endl << "THIS USER NAME HAS ALREADY EXIST!" << endl;
 						break;
 					}
 					else {
@@ -245,7 +245,7 @@ void registerStaffAccount(node& a, string position) {
 						cout << "CONFIRM PASSWORD: "; getline(cin, checkmk);
 						if (checkmk.compare(mk) == 0) {
 							cout << "WORK PLACE: "; getline(cin, diadiem);
-							cout << endl << "REGISTER SUCCESSFULLY!" << endl;
+							cout << endl  << endl << "REGISTER SUCCESSFULLY!" << endl;
 							check = 0;
 							Staff n;
 							n.acc = tk;
@@ -257,14 +257,14 @@ void registerStaffAccount(node& a, string position) {
 							addAccountStaff(a, temp);
 						}
 						else {
-							cout << "INCORRECT!" << endl;
+							cout << endl << "INCORRECT!" << endl;
 						}
 					}
 				}
 			}
 		}
 		else {
-			cout << "INVALID NAME." << endl;
+			cout << endl << "INVALID NAME." << endl;
 			check = 1;
 		}
 	}
@@ -306,7 +306,7 @@ void registerStudentAccount(logstu& a, list b, base& c, string position) {
 						cout << "USER NAME: "; getline(cin, tk);
 						for (logstu t = a->next; t != NULL; t = t->next) {
 							if (tk.compare(t->infor.acc) == 0) {
-								cout << "THIS USER NAME HAS ALREADY EXIST!" << endl;
+								cout << endl << "THIS USER NAME HAS ALREADY EXIST!" << endl;
 								break;
 							}
 							else {
@@ -331,7 +331,7 @@ void registerStudentAccount(logstu& a, list b, base& c, string position) {
 															while (check) {
 																cout << "SOCIAL ID: "; getline(cin, sid);
 																if (checkSocialId(b, sid)) {
-																	cout << endl << "REGISTER SUCCESSFULLY!" << endl;
+																	cout << endl << endl << "REGISTER SUCCESSFULLY!" << endl;
 																	check = 0;
 																	SinhVien n;
 																	n.acc = tk;
@@ -350,44 +350,44 @@ void registerStudentAccount(logstu& a, list b, base& c, string position) {
 																	addAccountStudent(a, temp);
 																}
 																else {
-																	cout << "THIS ID ALREADY EXISTS." << endl;
+																	cout << endl << "THIS ID ALREADY EXISTS." << endl;
 																	check = 1;
 																}
 															}
 														}
 														else {
-															cout << "INVALID" << endl;
+															cout << endl << "INVALID" << endl;
 															check = 1;
 														}
 													}
 												}
 												else {
-													cout << "INVALID TIME. " << endl;
+													cout << endl << "INVALID TIME. " << endl;
 													check = 1;
 												}
 											}
 										}
 										else {
-											cout << "THIS CLASS NOT EXISTS." << endl;
+											cout << endl << "THIS CLASS NOT EXISTS." << endl;
 											check = 1;
 										}
 									}
 								}
 								else {
-									cout << "INCORRECT!" << endl;
+									cout << endl << "INCORRECT!" << endl;
 								}
 							}
 						}
 					}
 				}
 				else {
-					cout << "INVALID NAME." << endl;
+					cout << endl << "INVALID NAME." << endl;
 					check = 1;
 				}
 			}
 		}
 		else {
-			cout << "THIS ID ALREADY EXIST." << endl;
+			cout << endl << "THIS ID ALREADY EXIST." << endl;
 			check = 1;
 		}
 	}
@@ -599,7 +599,7 @@ void addStudentInClass(list& a, base& b, string str) {
 												check = 0;
 												list tmp = makeList(temp);
 												addInforStudent(a, tmp);
-												cout << endl << "ADD STUDENT SUCCESSFULLY!" << endl;
+												cout << endl << endl << "ADD STUDENT SUCCESSFULLY!" << endl;
 												for (base them = b; them != NULL; them = them->next) {
 													if (them->data.name.compare(temp.stuclass) == 0) {
 														int n = atof(them->data.number.c_str());
@@ -610,36 +610,36 @@ void addStudentInClass(list& a, base& b, string str) {
 											}
 											else {
 												check = 1;
-												cout << "THIS ID ALREADY EXISTS." << endl;
+												cout << endl << "THIS ID ALREADY EXISTS." << endl;
 											}
 										}
 									}
 									else {
 										check = 1;
-										cout << "INVALID DAY." << endl;
+										cout << endl << "INVALID DAY." << endl;
 									}
 								}
 								else {
 									check = 1;
-									cout << "INVALID GENDER." << endl;
+									cout << endl << "INVALID GENDER." << endl;
 								}
 							}
 						}
 						else {
 							check = 1;
-							cout << "INVALID NAME." << endl;
+							cout << endl << "INVALID NAME." << endl;
 						}
 					}
 				}
 				else {
 					check = 1;
-					cout << "INVALID NAME." << endl;
+					cout << endl << "INVALID NAME." << endl;
 				}
 			}
 		}
 		else {
 			check = 1;
-			cout << "THIS ID ALREADY EXISTS." << endl;
+			cout << endl << "THIS ID ALREADY EXISTS." << endl;
 		}
 	}
 }
@@ -695,46 +695,46 @@ void addStudentToCourse(list& a, base b, result& c, string str, string id) {
 														result kq = makeResult(tmp);
 														addInforStudent(a, student);
 														addInResult(c, kq);
-														cout << endl << "ADD STUDENT SUCCESSFULLY!" << endl;
+														cout << endl << endl << "ADD STUDENT SUCCESSFULLY!" << endl;
 													}
 													else {
 														check = 1;
-														cout << "THIS ID ALREADY EXISTS." << endl;
+														cout << endl << "THIS ID ALREADY EXISTS." << endl;
 													}
 												}
 											}
 											else {
 												check = 1;
-												cout << "INVALID DAY." << endl;
+												cout << endl << "INVALID DAY." << endl;
 											}
 										}
 										else {
 											check = 1;
-											cout << "INVALID GENDER." << endl;
+											cout << endl << "INVALID GENDER." << endl;
 										}
 									}
 								}
 								else {
 									check = 1;
-									cout << "INVALID CLASS." << endl;
+									cout << endl << "INVALID CLASS." << endl;
 								}
 							}
 						}
 						else {
 							check = 1;
-							cout << "INVALID NAME." << endl;
+							cout << endl << "INVALID NAME." << endl;
 						}
 					}
 				}
 				else {
 					check = 1;
-					cout << "INVALID NAME." << endl;
+					cout << endl << "INVALID NAME." << endl;
 				}
 			}
 		}
 		else {
 			check = 1;
-			cout << "THIS ID ALREADY EXISTS." << endl;
+			cout << endl << "THIS ID ALREADY EXISTS." << endl;
 		}
 	}
 }
@@ -822,7 +822,7 @@ void readFileClass(ifstream& f, base& a) {
 // In thong tin lop hoc ra man hinh
 void outputClass(base a) {
 	if (a == NULL) {
-		cout << "NOTHING!" << endl;
+		cout << endl << "NOTHING!" << endl;
 	}
 	else {
 		cout << setw(40) << "=====CLASS=====" << endl;
@@ -936,7 +936,7 @@ void outputStudentofClass(list a, string b) {
 		cout << right;
 	}
 	else {
-		cout << endl << "THIS CLASS HAS NO STUDENT." << endl;
+		cout << endl << endl << "THIS CLASS HAS NO STUDENT." << endl;
 	}
 }
 
@@ -964,7 +964,7 @@ void outputCourseofClass(board a, string b) {
 		cout << right;
 	}
 	else {
-		cout << endl << "THIS CLASS HAS NO COURSE." << endl;
+		cout << endl << endl << "THIS CLASS HAS NO COURSE." << endl;
 	}
 }
 
@@ -1225,40 +1225,40 @@ void addCourse(board& a) {
 													board temp = makeBoard(add);
 													addInCourse(a, temp);
 													check = 0;
-													cout << "SUCCESFULLY!" << endl;
+													cout << endl << endl << "SUCCESFULLY!" << endl;
 												}
 											}
 										}
 										else {
 											check = 1;
-											cout << "INVALID TIME." << endl;
+											cout << endl << "INVALID TIME." << endl;
 										}
 									}
 								}
 								else {
 									check = 1;
-									cout << "INVALID TIME." << endl;
+									cout << endl << "INVALID TIME." << endl;
 								}
 							}
 						}
 						else {
 							check = 1;
-							cout << "INVALID TIME." << endl;
+							cout << endl << "INVALID TIME." << endl;
 						}
 					}
 				}
 				else {
 					check = 1;
-					cout << "INVALID TIME." << endl;
+					cout << endl << "INVALID TIME." << endl;
 				}
 			}
 		}
 		else {
 			check = 1;
-			cout << "ID ALREADY EXISTS." << endl;
+			cout << endl << "ID ALREADY EXISTS." << endl;
 		}
 	}
-	cout << "ADD NEW COURSE SUCCESSFULLY!" << endl;
+	cout << endl << endl << "ADD NEW COURSE SUCCESSFULLY!" << endl;
 }
 
 // Lam rong Board
@@ -1275,7 +1275,7 @@ void clearBoard(board& a) {
 // Xoa khoa hoc
 void deleteCourse(board& a, string str) {
 	if (boardEmpty(a)) {
-		cout << "THERE'S NO COURSE." << endl;
+		cout << endl << "THERE'S NO COURSE." << endl;
 	}
 	else {
 		if (a->course.name.compare(str) == 0) {
@@ -1295,7 +1295,7 @@ void deleteCourse(board& a, string str) {
 				}
 			}
 		}
-		cout << "REMOVE COURSE SUCCESSFULLY." << endl;
+		cout << endl << endl << "REMOVE COURSE SUCCESSFULLY." << endl;
 	}
 }
 
@@ -1393,7 +1393,7 @@ void outputScore(result a, string str, string id) {
 		}
 	}
 	if (dem == count) {
-		cout << "THIS COURSE HAS NO STUDENT." << endl;
+		cout << endl << endl << "THIS COURSE HAS NO STUDENT." << endl;
 	}
 	cout << right << endl;
 }
@@ -1443,24 +1443,24 @@ void updateStudentScore(result& a, string str, string id, string stuid) {
 					while (check) {
 						cout << "\tFINAL MARK: "; getline(cin, mark3);
 						if (checkScore(mark3)) {
-							cout << "UPDATE SCORE SUCCESSFULLY." << endl;
+							cout << endl << endl << "UPDATE SCORE SUCCESSFULLY." << endl;
 							check = 0;
 						}
 						else {
-							cout << "SCORE INVALID." << endl;
+							cout << endl << "SCORE INVALID." << endl;
 							cout << endl;
 							check = 1;
 						}
 					}
 				}
 				else {
-					cout << "SCORE INVALID." << endl;
+					cout << endl << "SCORE INVALID." << endl;
 					check = 1;
 				}
 			}
 		}
 		else {
-			cout << "SCORE INVALID." << endl;
+			cout << endl << "SCORE INVALID." << endl;
 			check = 1;
 		}
 	}
@@ -1634,7 +1634,7 @@ void viewListCourse(logstu a, board b, list c, string tk) {
 		}
 	}
 	if (dem == 0) {
-		cout << "YOU HAVE NO COURSE." << endl;
+		cout << endl << "YOU HAVE NO COURSE." << endl;
 	}
 	else {
 		cout << setw(60) << "==========YOUR COURSE==========" << endl;
@@ -1669,7 +1669,7 @@ void viewScore(logstu a, result b, string tk) {
 		}
 	}
 	if (dem == 0) {
-		cout << "YOU HAVE NO COURSE." << endl;
+		cout << endl << "YOU HAVE NO COURSE." << endl;
 		cout << endl;
 	}
 	else {
