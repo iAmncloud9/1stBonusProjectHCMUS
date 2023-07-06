@@ -83,3 +83,23 @@ struct Result {
 };
 
 typedef struct Result* result;
+
+/*------------------------------------------------------------*/
+
+struct Them {
+	string stt;
+	string id;
+	string clas;
+	string fname;
+	string lname;
+	string gender;
+	string birth;
+	string scid;
+};
+
+struct Add {
+	Them data;
+	Add* next;
+};
+
+typedef Add* add;

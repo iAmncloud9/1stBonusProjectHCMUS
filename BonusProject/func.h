@@ -106,6 +106,15 @@ void clearResult(result& a);
 bool checkScore(string mark);
 void removeStudent(result& a, string str, string cid, string id);
 
+//					============FILE ADD=============
+add makeAdd(Them infor);
+bool addEmpty(add& a);
+void readAdd(ifstream& f, Them& infor);
+void addInAdd(add& a, add temp);
+void readFileAdd(ifstream& f, add& a);
+void addStudentFromFile(add a, list& b, base& c, string str);
+void clearAdd(add& a);
+
 //								DANH CHO STUDENT
 void viewListCourse(logstu a, board b, list c, string tk);
 void viewScore(logstu a, result b, string tk);

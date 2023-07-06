@@ -897,7 +897,7 @@ void outputFileClass(ofstream& f, base a) {
 		f << p->data.name << "," << p->data.scyear << "," << p->data.max << "," << p->data.number << endl;
 		p = p->next;
 	}
-	f << p->data.name << "," << p->data.scyear << "," << p->data.number;
+	f << p->data.name << "," << p->data.scyear << "," << p->data.max << "," << p->data.number;
 }
 
 // Them lop hoc vao Base
@@ -1521,6 +1521,101 @@ void removeStudent(result& a, string str, string cid, string id) {
 		}
 	}
 }
+
+//								============THAO TAC VOI FILE THEM SINH VIEN==============
+// Ham tao Add moi
+add makeAdd(Them infor) {
+	add temp = new Add();
+	temp->data = infor;
+	temp->next = NULL;
+	return temp;
+}
+
+// Kiem tra Add rong
+bool addEmpty(add& a) {
+	return a == NULL;
+}
+
+// Ham doc thong tin file them sinh vien
+void readAdd(ifstream& f, Them& infor) {
+	getline(f, infor.stt, ',');
+	getline(f, infor.id, ',');
+	getline(f, infor.clas, ',');
+	getline(f, infor.fname, ',');
+	getline(f, infor.lname, ',');
+	getline(f, infor.gender, ',');
+	getline(f, infor.birth, ',');
+	getline(f, infor.scid, '\n');
+}
+
+// Them thong tin vao Add
+void addInAdd(add& a, add temp) {
+	if (addEmpty(a)) {
+		a = temp;
+	}
+	else {
+		add p = a;
+		while (p->next != NULL) {
+			p = p->next;
+		}
+		p->next = temp;
+	}
+}
+
+// Doc file va ghi vao danh sach
+void readFileAdd(ifstream& f, add& a) {
+	while (!f.eof()) {
+		Them infor;
+		readAdd(f, infor);
+		add temp = makeAdd(infor);
+		addInAdd(a, temp);
+	}
+}
+
+// Them sinh vien tu file vao lop
+void addStudentFromFile(add a, list& b, base& c, string str) {
+	if (addEmpty(a)) {
+		cout << endl << "EMPTY FILE." << endl;
+	}
+	else {
+		int dem = 0;
+		for (add n = a; n != NULL; n = n->next) {
+			if (n->data.clas.compare(str) == 0) {
+				sv temp;
+				temp.id = n->data.id;
+				temp.stuclass = n->data.clas;
+				temp.fname = n->data.fname;
+				temp.lname = n->data.lname;
+				temp.gender = n->data.gender;
+				temp.birth = n->data.birth;
+				temp.scid = n->data.scid;
+				list them = makeList(temp);
+				addInforStudent(b, them);
+				dem++;
+			}
+		}
+		for (base m = c; m != NULL; m = m->next) {
+			if (m->data.name.compare(str) == 0) {
+				int t = atof(m->data.number.c_str());
+				t = t + dem;
+				m->data.number = to_string(t);
+			}
+		}
+		cout << endl << endl << "ADD STUDENT FROM FILE SUCCESSFULLY." << endl;
+	}
+}
+
+// Lam rong Result
+void clearAdd(add& a) {
+	add p = a;
+	while (p != NULL) {
+		add temp = p;
+		p = p->next;
+		delete temp;
+	}
+	a = NULL;
+}
+
 
 
 //												HAM DANH CHO STUDENT

@@ -54,5 +54,6 @@
     <None Include="list_student.csv" />
     <None Include="course.csv" />
     <None Include="student_score.csv" />
+    <None Include="add_student.csv" />
   </ItemGroup>
 </Project>

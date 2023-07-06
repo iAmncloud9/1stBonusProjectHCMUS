@@ -34,6 +34,7 @@
     <ResourceCompile Include="BonusProject.rc" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="add_student.csv" />
     <None Include="class.csv" />
     <None Include="course.csv" />
     <None Include="list_student.csv" />

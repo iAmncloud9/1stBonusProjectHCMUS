@@ -119,11 +119,10 @@ void update_course_sta_menu() {
 	cout << setw(80) << "*****************************************" << endl;
 	cout << setw(40) << "*" << setw(19) << "UPDATE" << setw(21) << "*" << endl;
 	cout << setw(40) << "*" << setw(21) << "----------" << setw(19) << "*" << endl;
-	cout << setw(40) << "*" << setw(27) << "1. Add One Student" << setw(13) << "*" << endl;
-	cout << setw(40) << "*" << setw(30) << "2. Add Student (File)" << setw(10) << "*" << endl;
-	cout << setw(40) << "*" << setw(35) << "3. Update Student's Result" << setw(5) << "*" << endl;
-	cout << setw(40) << "*" << setw(26) << "4. Remove Student" << setw(14) << "*" << endl;
-	cout << setw(40) << "*" << setw(16) << "5. Back" << setw(24) << "*" << endl;
+	cout << setw(40) << "*" << setw(23) << "1. Add Student" << setw(17) << "*" << endl;
+	cout << setw(40) << "*" << setw(35) << "2. Update Student's Result" << setw(5) << "*" << endl;
+	cout << setw(40) << "*" << setw(26) << "3. Remove Student" << setw(14) << "*" << endl;
+	cout << setw(40) << "*" << setw(16) << "4. Back" << setw(24) << "*" << endl;
 	cout << setw(80) << "*****************************************" << endl;
 }
 
