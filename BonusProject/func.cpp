@@ -644,13 +644,6 @@ void addStudentInClass(list& a, base& b, string str) {
 	}
 }
 
-// Them sinh vien tu file
-void addStudentFromFile() {
-
-
-
-}   // (Chua hoan thanh)
-
 // Ghi List vao File
 void outputStudentinFile(ofstream& f, list a) {
 	list p = a->next;
@@ -919,7 +912,7 @@ int addClass(base& a, string str, string name) {
 	return check;
 }
 
-// In thong tin sinh vien cua lop
+// Xuat thong tin sinh vien cua lop
 void outputStudentofClass(list a, string b) {
 	int stt = 1;
 	int count = 0;

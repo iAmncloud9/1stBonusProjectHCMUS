@@ -57,7 +57,7 @@ void work_sta_menu() {
 	cout << setw(80) << "*****************************************" << endl;
 }
 
-//Menu lop hoc
+// Menu lop hoc
 void class_sta_menu() {
 	cout << setw(80) << "*****************************************" << endl;
 	cout << setw(40) << "*" << setw(18) << "CLASS" << setw(22) << "*" << endl;
@@ -139,7 +139,7 @@ void stu_menu() {
 	cout << setw(80) << "*****************************************" << endl;
 }
 
-// Menu khi dang nhap voi tu cach sinh vien
+// Menu khi dang nhap
 void in_stu_menu() {
 	cout << setw(80) << "*****************************************" << endl;
 	cout << setw(40) << "*" << setw(20) << "STUDENT" << setw(20) << "*" << endl;
