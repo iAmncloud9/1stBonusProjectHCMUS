@@ -5,10 +5,10 @@
 #include<string>
 
 typedef struct Student {
-	string course;
-	string cid;
-	string stuclass;
+	//string course;
+	//string cid;
 	string id;
+	string stuclass;
 	string fname;
 	string lname;
 	string gender;
@@ -50,7 +50,8 @@ struct Course {
 	string dayend;
 	string timestart;
 	string timeend;
-	string number;
+	string max;
+	//string number;			// Them
 	string lecturer;
 	string day;
 	string room;

@@ -272,8 +272,51 @@ void registerStaffAccount(node& a, string position) {
 	}
 }
 
+// Kiem tra sinh vien da dang ki tai khoan hay chua
+bool checkStudentAccount(logstu a, string id) {
+	int count = 0;
+	for (logstu t = a; t != NULL; t = t->next) {
+		if (t->infor.id.compare(id) == 0) {
+			count++;
+		}
+	}
+	if (count != 0) {
+		return false;
+	}
+	else {
+		return true;
+	}
+}
+
+// Dem so khoa hoc da dang ki
+int countStudentCredit(result a, string id) {
+	int dem = 0;
+	for (result p = a; p != NULL; p = p->next) {
+		if (p->mark.id.compare(id) == 0) {
+			dem++;
+		}
+	}
+	return dem;
+}
+
+// Kiem tra can cuoc cong dan trong danh sach tai khoan sinh vien
+bool checkStudentSocialID(logstu a, string sid) {
+	int dem = 0;
+	for (logstu p = a; p != NULL; p = p->next) {
+		if (p->infor.sid.compare(sid) == 0) {
+			dem++;
+		}
+	}
+	if (dem == 0) {
+		return true;
+	}
+	else {
+		return false;
+	}
+}
+
 // Ham dang ki tai khoan cho Student
-void registerStudentAccount(logstu& a, list b, base& c, string position) {
+void registerStudentAccount(logstu& a, list b, base& c, result d, string position) {
 	string tk;
 	string mk;
 	string checkmk;
@@ -285,7 +328,7 @@ void registerStudentAccount(logstu& a, list b, base& c, string position) {
 	string birth;
 	string gen;
 	string sid;
-	string credit = "0";
+	string credit;
 	int check = 1;
 	int dem = 0;
 	int count = 0;
@@ -293,105 +336,110 @@ void registerStudentAccount(logstu& a, list b, base& c, string position) {
 		dem++;
 	}
 	cin.ignore();
-	cout << "PERSONAL INFORMATION" << endl;
+	cout << endl << "==========ACCOUNT INFORMATION==========" << endl << endl;
 	while (check) {
 		cout << "STUDENT ID: "; getline(cin, id);
-		if (checkStuID(b, id)) {
-			while (check) {
-				cout << "FIRST NAME: "; getline(cin, ten1);
-				cout << "FULL NAME: "; getline(cin, ten2);
-				checkName(ten1);
-				checkName(ten2);
-				if (checkStuName(ten1) && checkStuName(ten2)) {
-					cout << "GRADE: "; getline(cin, grade);
-					cout << endl << "==========ACCOUNT INFORMATION==========" << endl;
-					while (check) {
-						cout << "USER NAME: "; getline(cin, tk);
-						for (logstu t = a->next; t != NULL; t = t->next) {
-							if (tk.compare(t->infor.acc) == 0) {
-								cout << endl << "THIS USER NAME HAS ALREADY EXIST!" << endl;
-								break;
-							}
-							else {
-								count++;
-							}
-						}
-						if (count == dem) {
-							cout << "PASSWORD: "; getline(cin, mk);
-							while (check) {
-								cout << "CONFIRM PASSWORD: "; getline(cin, checkmk);
-								if (checkmk.compare(mk) == 0) {
-									while (check) {
-										cout << "CLASS: "; getline(cin, cla);
-										if (reClass(c, cla)) {
-											while (check) {
-												cout << "DAY OF BIRTH (DAY/MONTH/YEAR): "; getline(cin, birth);
-												if (checkDay(birth)) {
-													while (check) {
-														cout << "GENDER (MALE/FEMALE): "; getline(cin, gen);
-														checkName(gen);
-														if (gen == "Female" || gen == "Male") {
-															while (check) {
-																cout << "SOCIAL ID: "; getline(cin, sid);
-																if (checkSocialId(b, sid)) {
-																	cout << endl << endl << "REGISTER SUCCESSFULLY!" << endl;
-																	check = 0;
-																	SinhVien n;
-																	n.acc = tk;
-																	n.pass = mk;
-																	n.position = position.substr(0);
-																	n.fname = ten1;
-																	n.lname = ten2;
-																	n.grade = grade;
-																	n.id = id;
-																	n.clas = cla;
-																	n.birthday = birth;
-																	n.gender = gen;
-																	n.credit = credit.c_str();
-																	n.sid = sid;
-																	logstu temp = makeAccountStudent(n);
-																	addAccountStudent(a, temp);
-																}
-																else {
-																	cout << endl << "THIS ID ALREADY EXISTS." << endl;
-																	check = 1;
-																}
-															}
-														}
-														else {
-															cout << endl << "INVALID" << endl;
-															check = 1;
-														}
-													}
-												}
-												else {
-													cout << endl << "INVALID TIME. " << endl;
-													check = 1;
-												}
-											}
-										}
-										else {
-											cout << endl << "THIS CLASS NOT EXISTS." << endl;
-											check = 1;
-										}
-									}
+		if (checkStudentExist(b, id)) {
+			if (checkStudentAccount(a, id)) {
+				while (check) {
+					cout << "FIRST NAME: "; getline(cin, ten1);
+					cout << "LAST NAME: "; getline(cin, ten2);
+					checkName(ten1);
+					checkName(ten2);
+					if (checkStuName(ten1) && checkStuName(ten2)) {
+						cout << "GRADE (CSC, APCS, CLC,...): "; getline(cin, grade);
+						while (check) {
+							cout << "USER NAME: "; getline(cin, tk);
+							for (logstu t = a->next; t != NULL; t = t->next) {
+								if (tk.compare(t->infor.acc) == 0) {
+									cout << endl << "THIS USER NAME HAS ALREADY EXIST!" << endl;
+									break;
 								}
 								else {
-									cout << endl << "INCORRECT!" << endl;
+									count++;
+								}
+							}
+							if (count == dem) {
+								cout << "PASSWORD: "; getline(cin, mk);
+								while (check) {
+									cout << "CONFIRM PASSWORD: "; getline(cin, checkmk);
+									if (checkmk.compare(mk) == 0) {
+										while (check) {
+											cout << "CLASS: "; getline(cin, cla);
+											if (reClass(c, cla)) {
+												while (check) {
+													cout << "DAY OF BIRTH (DAY/MONTH/YEAR): "; getline(cin, birth);
+													if (checkDay(birth)) {
+														while (check) {
+															cout << "GENDER (MALE/FEMALE): "; getline(cin, gen);
+															checkName(gen);
+															if (gen == "Female" || gen == "Male") {
+																while (check) {
+																	cout << "SOCIAL ID: "; getline(cin, sid);
+																	if (checkStudentSocialID(a, sid)) {
+																		cout << endl << endl << "REGISTER SUCCESSFULLY!" << endl;
+																		check = 0;
+																		SinhVien n;
+																		n.acc = tk;
+																		n.pass = mk;
+																		n.position = position.substr(0);
+																		n.fname = ten1;
+																		n.lname = ten2;
+																		n.grade = grade;
+																		n.id = id;
+																		n.clas = cla;
+																		n.birthday = birth;
+																		n.gender = gen;
+																		n.credit = countStudentCredit(d, id);
+																		n.sid = sid;
+																		logstu temp = makeAccountStudent(n);
+																		addAccountStudent(a, temp);
+																	}
+																	else {
+																		cout << endl << "THIS ID ALREADY EXISTS." << endl;
+																		check = 1;
+																	}
+																}
+															}
+															else {
+																cout << endl << "INVALID" << endl;
+																check = 1;
+															}
+														}
+													}
+													else {
+														cout << endl << "INVALID TIME. " << endl;
+														check = 1;
+													}
+												}
+											}
+											else {
+												cout << endl << "THIS CLASS NOT EXISTS." << endl;
+												check = 1;
+											}
+										}
+									}
+									else {
+										cout << endl << "INCORRECT!" << endl;
+									}
 								}
 							}
 						}
 					}
+					else {
+						cout << endl << "INVALID NAME." << endl;
+						check = 1;
+					}
 				}
-				else {
-					cout << endl << "INVALID NAME." << endl;
-					check = 1;
-				}
+			}
+			else {
+				cout << "THIS STUDENT ALREADY HAVE AN ACCOUNT." << endl;
+				check = 0;
 			}
 		}
 		else {
-			cout << endl << "THIS ID ALREADY EXIST." << endl;
-			check = 1;
+			cout << endl << "THIS STUDENT IS NOT EXISTS." << endl;
+			check = 0;
 		}
 	}
 }
@@ -439,10 +487,8 @@ bool listEmpty(list& a) {
 
 // Ham doc thong tin sinh vien
 void readStudent(ifstream& f, sv& infor) {
-	getline(f, infor.course, ',');
-	getline(f, infor.cid, ',');
-	getline(f, infor.stuclass, ',');
 	getline(f, infor.id, ',');
+	getline(f, infor.stuclass, ',');
 	getline(f, infor.fname, ',');
 	getline(f, infor.lname, ',');
 	getline(f, infor.gender, ',');
@@ -641,7 +687,7 @@ void addStudentInClass(list& a, base& b, string str) {
 			}
 		}
 		else {
-			check = 1;
+			check = 0;
 			cout << endl << "THIS ID ALREADY EXISTS." << endl;
 		}
 	}
@@ -651,116 +697,131 @@ void addStudentInClass(list& a, base& b, string str) {
 void outputStudentinFile(ofstream& f, list a) {
 	list p = a;
 	while (p->next != NULL) {
-		f << p->student.course << "," << p->student.cid << "," << p->student.stuclass << "," << p->student.id << "," << p->student.fname << "," << p->student.lname << "," << p->student.gender << "," << p->student.birth << "," << p->student.scid << endl;
+		f << p->student.id << "," << p->student.stuclass << "," << p->student.fname << "," << p->student.lname << "," << p->student.gender << "," << p->student.birth << "," << p->student.scid << endl;
 		p = p->next;
 	}
-	f << p->student.course << "," << p->student.cid << "," << p->student.stuclass << "," << p->student.id << "," << p->student.fname << "," << p->student.lname << "," << p->student.gender << "," << p->student.birth << "," << p->student.scid;
+	f << p->student.id << "," << p->student.stuclass << "," << p->student.fname << "," << p->student.lname << "," << p->student.gender << "," << p->student.birth << "," << p->student.scid;
+}
+
+// Kiem tra sinh vien da co trong khoa hoc hay chua
+bool checkStudentInCourse(string id, result a) {
+	int dem = 0;
+	int count = 0;
+	for (result t = a; t != NULL; t = t->next) {
+		count++;
+	}
+	for (result p = a; p != NULL; p = p->next) {
+		if (p->mark.id.compare(id) == 0) {
+			return false;
+		}
+		else {
+			dem++;
+		}
+	}
+	if (dem == count) {
+		return true;
+	}
+}
+
+// Kiem tra sinh vien ton tai hay khong
+bool checkStudentExist(list a, string id) {
+	int count = 0;
+	int dem = 0;
+	for (list t = a; t != NULL; t = t->next) {
+		count++;
+	}
+	for (list p = a; p != NULL; p = p->next) {
+		if (p->student.id.compare(id) == 0) {
+			return true;
+		}
+		else {
+			dem++;
+		}
+	}
+	if (dem == count) {
+		return false;
+	}
 }
 
 // Them mot sinh vien vao khoa hoc
-void addStudentToCourse(list& a, base b, result& c, string str, string id) {
-	sv temp;
+void addStudentToCourse(list a, base b, result& c, string str, string id) {
 	Score tmp;
-	temp.course = str;
-	temp.cid = id;
 	tmp.course = str;
 	tmp.cid = id;
 	int check = 1;
 	cin.ignore();
 	while (check) {
-		cout << "STUDENT ID: "; getline(cin, temp.id);
-		if (checkStuID(a, temp.id)) {
-			tmp.id = temp.id;
-			while (check) {
-				cout << "FIRST NAME: "; getline(cin, temp.fname);
-				checkName(temp.fname);
-				if (checkStuName(temp.fname)) {
-					tmp.fname = temp.fname;
-					while (check) {
-						cout << "LAST NAME: "; getline(cin, temp.lname);
-						checkName(temp.lname);
-						if (checkStuName(temp.lname)) {
-							tmp.lname = temp.lname;
-							while (check) {
-								cout << "CLASS: "; getline(cin, temp.stuclass);
-								if (checkStuInClass(b, temp.stuclass)) {
-									while (check) {
-										cout << "GENDER (Male/Female): "; getline(cin, temp.gender);
-										checkName(temp.gender);
-										if (temp.gender == "Male" || temp.gender == "Female") {
-											cout << "DATE OF BIRTH (Ex: 1/1/2004): "; getline(cin, temp.birth);
-											if (checkDay(temp.birth)) {
-												while (check) {
-													cout << "SOCIAL ID: "; getline(cin, temp.scid);
-													if (checkSocialId(a, temp.scid)) {
-														check = 0;
-														list student = makeList(temp);
-														result kq = makeResult(tmp);
-														addInforStudent(a, student);
-														addInResult(c, kq);
-														cout << endl << endl << "ADD STUDENT SUCCESSFULLY!" << endl;
-													}
-													else {
-														check = 1;
-														cout << endl << "THIS ID ALREADY EXISTS." << endl;
-													}
-												}
-											}
-											else {
-												check = 1;
-												cout << endl << "INVALID DAY." << endl;
-											}
-										}
-										else {
-											check = 1;
-											cout << endl << "INVALID GENDER." << endl;
-										}
-									}
-								}
-								else {
-									check = 1;
-									cout << endl << "INVALID CLASS." << endl;
-								}
+		cout << "STUDENT ID: "; getline(cin, tmp.id);
+		if (checkStudentExist(a, tmp.id)) {
+			if (checkStudentInCourse(tmp.id, c)) {
+				while (check) {
+					cout << "FIRST NAME: "; getline(cin, tmp.fname);
+					checkName(tmp.fname);
+					if (checkStuName(tmp.fname)) {
+						while (check) {
+							cout << "LAST NAME: "; getline(cin, tmp.lname);
+							checkName(tmp.lname);
+							if (checkStuName(tmp.lname)) {
+								check = 0;
+								result kq = makeResult(tmp);
+								addInResult(c, kq);
+								cout << endl << endl << "ADD STUDENT SUCCESSFULLY!" << endl;
+							}
+							else {
+								check = 1;
+								cout << endl << "INVALID NAME." << endl;
 							}
 						}
-						else {
-							check = 1;
-							cout << endl << "INVALID NAME." << endl;
-						}
+					}
+					else {
+						check = 1;
+						cout << endl << "INVALID NAME." << endl;
 					}
 				}
-				else {
-					check = 1;
-					cout << endl << "INVALID NAME." << endl;
-				}
+			}
+			else {
+				cout << endl << "THIS STUDENT ALREADY EXISTS." << endl;
+				check = 0;
 			}
 		}
 		else {
-			check = 1;
-			cout << endl << "THIS ID ALREADY EXISTS." << endl;
+			cout << "THIS STUDENT IS NOT EXISTS." << endl;
+			check = 0;
 		}
 	}
 }
 
 // Xoa sinh vien ra khoi khoa hoc
-void removeStudentFromCourse(list& a, string str, string cid, string id) {
-	if (a->student.course.compare(str) == 0 && a->student.cid.compare(cid) == 0 && a->student.id.compare(id) == 0) {
-		a = a->next;
-	}
-	else {
-		list truoc = a;
-		list sau = a->next;
-		while (sau->next != NULL) {
-			if (sau->student.course.compare(str) == 0 && sau->student.cid.compare(cid) == 0 && sau->student.id.compare(id) == 0) {
-				truoc->next = sau->next;
-				sau = sau->next;
+void removeStudentFromCourse(result& a, logstu& b, string str, string cid, string id) {
+		if (a->mark.course.compare(str) == 0 && a->mark.cid.compare(cid) == 0 && a->mark.id.compare(id) == 0) {
+			a = a->next;
+		}
+		else {
+			result truoc = a;
+			result sau = a->next;
+			while (sau->next != NULL) {
+				if (sau->mark.course.compare(str) == 0 && sau->mark.cid.compare(cid) == 0 && sau->mark.id.compare(id) == 0) {
+					truoc->next = sau->next;
+					sau = sau->next;
+				}
+				else {
+					truoc = sau;
+					sau = sau->next;
+				}
 			}
-			else {
-				truoc = sau;
-				sau = sau->next;
+			if (sau->mark.course.compare(str) == 0 && sau->mark.cid.compare(cid) == 0 && sau->mark.id.compare(id) == 0) {
+				truoc->next = NULL;
+				result temp = sau;
+				delete temp;
 			}
 		}
-	}
+		for (logstu l = b; l != NULL; l = l->next) {
+			if (l->infor.id.compare(id) == 0) {
+				int k = atof(l->infor.credit.c_str());
+				k--;
+				l->infor.credit = to_string(k);
+			}
+		}
 }
 
 //								============THAO TAC VOI DANH SACH LOP HOC===============
@@ -1009,7 +1070,7 @@ void readCourse(ifstream& f, Course& infor) {
 	getline(f, infor.timestart, ',');
 	getline(f, infor.timeend, ',');
 	getline(f, infor.day, ',');
-	getline(f, infor.number, ',');
+	getline(f, infor.max, ',');
 	getline(f, infor.lecturer, ',');
 	getline(f, infor.room, '\n');
 }
@@ -1043,7 +1104,7 @@ void outputCourse(board a) {
 	cout << "NO" << setw(14) << "COURSE ID" << setw(12) << "CREDITS" << setw(10) << "CLASS" << setw(18) << "COURSE NAME" << setw(16) << "DAY START" << setw(13) << "DAY END" << setw(17) << "TIME START" << setw(11) << "TIME END" << setw(16) << "DAY OF WEEK" << setw(16) << "MAX STUDENT" << setw(12) << "TEACHER" << setw(21) << "ROOM" << endl;
 	int stt = 1;
 	for (board t = a->next; t != NULL; t = t->next) {
-		cout << left << setw(10) << stt << setw(14) << t->course.id << setw(9) << t->course.credit << setw(12) << t->course.clas << setw(18) << t->course.name << setw(15) << t->course.daystart << setw(17) << t->course.dayend << setw(11) << t->course.timestart << setw(14) << t->course.timeend << setw(18) << t->course.day << setw(12) << t->course.number << setw(24) << t->course.lecturer << t->course.room << endl;
+		cout << left << setw(10) << stt << setw(14) << t->course.id << setw(9) << t->course.credit << setw(12) << t->course.clas << setw(18) << t->course.name << setw(15) << t->course.daystart << setw(17) << t->course.dayend << setw(11) << t->course.timestart << setw(14) << t->course.timeend << setw(18) << t->course.day << setw(12) << t->course.max << setw(24) << t->course.lecturer << t->course.room << endl;
 		stt++;
 	}
 	cout << right << endl;
@@ -1053,10 +1114,10 @@ void outputCourse(board a) {
 void outputFileCourse(ofstream& f, board a) {
 	board p = a;
 	while (p->next != NULL) {
-		f << p->course.name << "," << p->course.id << "," << p->course.credit << "," << p->course.clas << "," << p->course.daystart << "," << p->course.dayend << "," << p->course.timestart << "," << p->course.timeend << "," << p->course.day << "," << p->course.number << "," << p->course.lecturer << "," << p->course.room << endl;
+		f << p->course.name << "," << p->course.id << "," << p->course.credit << "," << p->course.clas << "," << p->course.daystart << "," << p->course.dayend << "," << p->course.timestart << "," << p->course.timeend << "," << p->course.day << "," << p->course.max << "," << p->course.lecturer << "," << p->course.room << endl;
 		p = p->next;
 	}
-	f << p->course.name << "," << p->course.id << "," << p->course.credit << "," << p->course.clas << "," << p->course.daystart << "," << p->course.dayend << "," << p->course.timestart << "," << p->course.timeend << "," << p->course.day << "," << p->course.number << "," << p->course.lecturer << "," << p->course.room;
+	f << p->course.name << "," << p->course.id << "," << p->course.credit << "," << p->course.clas << "," << p->course.daystart << "," << p->course.dayend << "," << p->course.timestart << "," << p->course.timeend << "," << p->course.day << "," << p->course.max << "," << p->course.lecturer << "," << p->course.room;
 }
 
 // Kiem tra id khoa hoc
@@ -1196,7 +1257,7 @@ bool checkWeek(string day) {
 // Them khoa hoc moi vao Board
 void addCourse(board& a) {
 	Course add;
-	add.number = "50";
+	add.max = "50";
 	int check = 1;
 	cin.ignore();
 	while (check) {
@@ -1277,19 +1338,19 @@ void clearBoard(board& a) {
 }
 
 // Xoa khoa hoc
-void deleteCourse(board& a, string str) {
+void deleteCourse(board& a, string str, string cid) {
 	if (boardEmpty(a)) {
 		cout << endl << "THERE'S NO COURSE." << endl;
 	}
 	else {
-		if (a->course.name.compare(str) == 0) {
+		if (a->course.name.compare(str) == 0 && a->course.id.compare(cid) == 0) {
 			a = a->next;
 		}
 		else {
 			board truoc = a;
 			board sau = a->next;
-			while (sau != NULL) {
-				if (sau->course.name.compare(str) == 0) {
+			while (sau->next != NULL) {
+				if (sau->course.name.compare(str) == 0 && sau->course.id.compare(cid) == 0) {
 					truoc->next = sau->next;
 					sau = sau->next;
 				}
@@ -1297,6 +1358,11 @@ void deleteCourse(board& a, string str) {
 					truoc = sau;
 					sau = sau->next;
 				}
+			}
+			if (sau->course.name.compare(str) == 0 && sau->course.id.compare(cid) == 0) {
+				truoc->next = NULL;
+				board temp = sau;
+				delete temp;
 			}
 		}
 		cout << endl << endl << "REMOVE COURSE SUCCESSFULLY." << endl;
@@ -1498,27 +1564,6 @@ void clearResult(result& a) {
 	a = NULL;
 }
 
-// Xoa sinh vien ra khoi khoa hoc
-void removeStudent(result& a, string str, string cid, string id) {
-	if (a->mark.course.compare(str) == 0 && a->mark.cid.compare(cid) == 0 && a->mark.id.compare(id) == 0) {
-		a = a->next;
-	}
-	else {
-		result truoc = a;
-		result sau = a->next;
-		while (sau->next != NULL) {
-			if (sau->mark.course.compare(str) == 0 && sau->mark.cid.compare(cid) == 0 && sau->mark.id.compare(id) == 0) {
-				truoc->next = sau->next;
-				sau = sau->next;
-			}
-			else {
-				truoc = sau;
-				sau = sau->next;
-			}
-		}
-	}
-}
-
 //								============THAO TAC VOI FILE THEM SINH VIEN==============
 // Ham tao Add moi
 add makeAdd(Them infor) {
@@ -1618,7 +1663,7 @@ void clearAdd(add& a) {
 //												HAM DANH CHO STUDENT
 
 // Xem danh sach khoa hoc
-void viewListCourse(logstu a, board b, list c, string tk) {
+void viewListCourse(logstu a, board b, result c, string tk) {
 	string fid;
 	int stt = 1;
 	int dem = 0;
@@ -1628,25 +1673,21 @@ void viewListCourse(logstu a, board b, list c, string tk) {
 			break;
 		}
 	}
-	for (list t = c; t != NULL; t = t->next) {
-		if (t->student.id.compare(fid) == 0) {
-			for (board k = b; k != NULL; k = k->next) {
-				if (t->student.course.compare(k->course.name) == 0 && t->student.cid.compare(k->course.id) == 0) {
-					dem++;
-				}
-			}
+	for (result t = c; t != NULL; t = t->next) {
+		if (t->mark.id.compare(fid) == 0) {
+			dem++;
 		}
 	}
 	if (dem == 0) {
-		cout << endl << "YOU HAVE NO COURSE." << endl;
+		cout << endl << endl << "YOU HAVE NO COURSE." << endl;
 	}
 	else {
 		cout << setw(60) << "==========YOUR COURSE==========" << endl;
 		cout << "NO" << setw(14) << "COURSE ID" << setw(12) << "CREDITS" << setw(10) << "CLASS" << setw(18) << "COURSE NAME" << setw(16) << "DAY START" << setw(13) << "DAY END" << setw(17) << "TIME START" << setw(15) << "TIME END" << setw(16) << "DAY OF WEEK" << setw(17) << "TEACHER" << setw(20) << "ROOM" << endl;
-		for (list r = c; r != NULL; r = r->next) {
-			if (r->student.id.compare(fid) == 0) {
+		for (result r = c; r != NULL; r = r->next) {
+			if (r->mark.id.compare(fid) == 0) {
 				for (board q = b; q != NULL; q = q->next) {
-					if (r->student.course.compare(q->course.name) == 0 && r->student.cid.compare(q->course.id) == 0) {
+					if (r->mark.course.compare(q->course.name) == 0 && r->mark.cid.compare(q->course.id) == 0) {
 						cout << left << setw(10) << stt << setw(14) << q->course.id << setw(9) << q->course.credit << setw(12) << q->course.clas << setw(18) << q->course.name << setw(15) << q->course.daystart << setw(17) << q->course.dayend << setw(16) << q->course.timestart << setw(14) << q->course.timeend << setw(15) << q->course.day << setw(26) << q->course.lecturer << q->course.room << endl;
 					}
 				}
@@ -1696,32 +1737,26 @@ void registerCourse(logstu& a, list& b, result& c, string str, string cid, strin
 		if (p->infor.acc.compare(tk) == 0) {
 			n = atof(p->infor.credit.c_str());
 			if (n >= 5) {
-				cout << endl << "YOU CAN'T REGIST MORE COURSE!" << endl;
+				cout << endl << endl << "YOU CAN'T REGIST MORE COURSE!" << endl;
 			}
 			else {
-				n++;
-				p->infor.credit = to_string(n);
-				Score diem;
-				sv infor;
-				diem.course = str;
-				diem.cid = cid;
-				diem.id = p->infor.id;
-				diem.fname = p->infor.fname;
-				diem.lname = p->infor.lname;
-				infor.course = str;
-				infor.cid = cid;
-				infor.stuclass = p->infor.clas;
-				infor.id = p->infor.id;
-				infor.fname = p->infor.fname;
-				infor.lname = p->infor.lname;
-				infor.gender = p->infor.gender;
-				infor.birth = p->infor.birthday;
-				infor.scid = p->infor.sid;
-				result temp1 = makeResult(diem);
-				list temp2 = makeList(infor);
-				addInResult(c, temp1);
-				addInforStudent(b, temp2);
-				cout << endl << endl << "SUCCESSFULLY" << endl;
+				for (result t = c; t != NULL; t = t->next) {
+					if (p->infor.id.compare(t->mark.id) == 0) {
+						cout << endl << endl << "YOU'RE IN THIS COURSE." << endl;
+						break;
+					}
+					n++;
+					p->infor.credit = to_string(n);
+					Score diem;
+					diem.course = str;
+					diem.cid = cid;
+					diem.id = p->infor.id;
+					diem.fname = p->infor.fname;
+					diem.lname = p->infor.lname;
+					result temp1 = makeResult(diem);
+					addInResult(c, temp1);
+					cout << endl << endl << "SUCCESSFULLY" << endl;
+				}
 			}
 		}
 	}

@@ -6,30 +6,33 @@ using namespace std;
 
 // Ham su dung trong Login
 
-void readAccountStaff(ifstream& f, Staff& log);									// Ham doc thong tin tai khoan tu File (Staff)
-void readAccountStudent(ifstream& f, SinhVien& log);							// Ham doc thong tin tai khoan tu File (Student)
-int loginStaff(ifstream& f, string tk, string mk);								// Ham kiem tra tai khoan khi dang nhap (Staff)
-int loginStudent(ifstream& f, string tk, string mk);							// Ham kiem tra tai khoan khi dang nhap (Student)
-void outputStaffInformation(Staff log);											// Ham xuat thong tin Staff ra man hinh
-void outputStudentInformation(SinhVien log);									// Ham xuat thong tin Student ra man hinh
-void staffInformation(ifstream& f, string tk, string mk);						// Ham doc thong tin tai khoan tu File (Staff)
-void studentInformation(ifstream& f, string tk, string mk);						// Ham doc thong tin tai khoan tu File (Student)
-node makeAccountStaff(Staff x);													// Ham cap phat node tam (Staff)
-logstu makeAccountStudent(SinhVien x);											// Ham cap phat node tam (Staff)
-bool nodeEmpty(node a);															// Ham kiem tra danh sach rong (Staff)
-bool loginEmpty(logstu a);														// Ham kiem tra danh sach rong (Student)
-void addAccountStaff(node& a, node temp);										// Ham them thong tin tai khoan vao danh sach (Staff)
-void addAccountStudent(logstu& a, logstu temp);									// Ham them thong tin tai khoan vao danh sach (Student)
-void readAllFileStaff(ifstream& f, node& a);									// Ham doc toan bo File (Staff)
-void readAllFileStudent(ifstream& f, logstu& a);								// Ham doc toan bo File (Student)
-void changePasswordStaff(node& a, string tk);									// Ham thay doi mat khau (Staff)
-void changePasswordStudent(logstu& a, string tk);								// Ham thay doi mat khau (Student)
-void ouputFileStaff(ofstream& f, node a);										// Ham ghi thong tin Staff vao File
-void ouputFileStudent(ofstream& f, logstu a);									// Ham ghi thong tin Student vao File
-void registerStaffAccount(node& a, string position);							// Ham dang ki tai khoan (Staff)
-void registerStudentAccount(logstu& a, list b, base& c, string position);		// Ham dang ki tai khoan (Student)
-void clearNode(node& a);														// Lam rong danh sach
-void clearLogin(logstu& a);														// Lam rong danh sach
+void readAccountStaff(ifstream& f, Staff& log);												// Ham doc thong tin tai khoan tu File (Staff)
+void readAccountStudent(ifstream& f, SinhVien& log);										// Ham doc thong tin tai khoan tu File (Student)
+int loginStaff(ifstream& f, string tk, string mk);											// Ham kiem tra tai khoan khi dang nhap (Staff)
+int loginStudent(ifstream& f, string tk, string mk);										// Ham kiem tra tai khoan khi dang nhap (Student)
+void outputStaffInformation(Staff log);														// Ham xuat thong tin Staff ra man hinh
+void outputStudentInformation(SinhVien log);												// Ham xuat thong tin Student ra man hinh
+void staffInformation(ifstream& f, string tk, string mk);									// Ham doc thong tin tai khoan tu File (Staff)
+void studentInformation(ifstream& f, string tk, string mk);									// Ham doc thong tin tai khoan tu File (Student)
+node makeAccountStaff(Staff x);																// Ham cap phat node tam (Staff)
+logstu makeAccountStudent(SinhVien x);														// Ham cap phat node tam (Staff)
+bool nodeEmpty(node a);																		// Ham kiem tra danh sach rong (Staff)
+bool loginEmpty(logstu a);																	// Ham kiem tra danh sach rong (Student)
+void addAccountStaff(node& a, node temp);													// Ham them thong tin tai khoan vao danh sach (Staff)
+void addAccountStudent(logstu& a, logstu temp);												// Ham them thong tin tai khoan vao danh sach (Student)
+void readAllFileStaff(ifstream& f, node& a);												// Ham doc toan bo File (Staff)
+void readAllFileStudent(ifstream& f, logstu& a);											// Ham doc toan bo File (Student)
+void changePasswordStaff(node& a, string tk);												// Ham thay doi mat khau (Staff)
+void changePasswordStudent(logstu& a, string tk);											// Ham thay doi mat khau (Student)
+void ouputFileStaff(ofstream& f, node a);													// Ham ghi thong tin Staff vao File
+void ouputFileStudent(ofstream& f, logstu a);												// Ham ghi thong tin Student vao File
+void registerStaffAccount(node& a, string position);										// Ham dang ki tai khoan (Staff)
+bool checkStudentAccount(logstu a, string id);
+int countStudentCredit(result a, string id);
+bool checkStudentSocialID(logstu a, string sid);
+void registerStudentAccount(logstu& a, list b, base& c, result d, string position);			// Ham dang ki tai khoan (Student)
+void clearNode(node& a);																	// Lam rong danh sach
+void clearLogin(logstu& a);																	// Lam rong danh sach
 
 // -----------------------------------------------------------------------------------------------------------------------
 
@@ -51,8 +54,10 @@ bool checkStuName(string name);																// Kiem tra ten hop le
 void checkName(string& a);																	// Ham hieu chinh ten
 bool checkStuInClass(base a, string str);													// Ham check lop hoc cua sinh vien		
 void addStudentInClass(list& a, base& b, string str);										// Them mot sinh vien vao lop hoc
-void addStudentToCourse(list& a, base b, result& c, string str, string id);					// Them mot sinh vien vao khoa hoc
-void removeStudentFromCourse(list& a, string str, string cid, string id);					// Xoa sinh vien ra khoi khoa hoc
+bool checkStudentInCourse(string id, result a);												// Kiem tra sinh vien da co trong khoa hoc hay chua
+bool checkStudentExist(list a, string id);													// Kiem tra sinh vien ton tai hay khong
+void addStudentToCourse(list a, base b, result& c, string str, string id);					// Them mot sinh vien vao khoa hoc
+void removeStudentFromCourse(result& a, logstu& b, string str, string cid, string id);		// Xoa sinh vien ra khoi khoa hoc
 
 //					============CLASS============
 base makeBase(Class infor);																	// Ham cap phat Base moi
@@ -86,7 +91,7 @@ bool checkTime(string time);																// Kiem tra thoi gian
 bool checkWeek(string day);																	// Kiem tra ngay trong tuan
 void addCourse(board& a);																	// Them khoa hoc moi vao Board
 void clearBoard(board& a);																	// Lam rong Board
-void deleteCourse(board& a, string str);													// Xoa khoa hoc
+void deleteCourse(board& a, string str, string cid);										// Xoa khoa hoc
 bool reCourse(board a, string str, string id);												// Check ten khoa hoc
 	
 //					============SCORE=============
@@ -101,7 +106,6 @@ void updateStudentScore(result& a, string str, string id, string stuid);					// 
 void outputFileScore(ofstream& f, result a);												// Ghi thong tin Result vao File
 void clearResult(result& a);																// Lam rong Result
 bool checkScore(string mark);																// Kiem tra diem
-void removeStudent(result& a, string str, string cid, string id);							// Xoa sinh vien ra khoi khoa hoc
 
 //					============FILE ADD=============
 add makeAdd(Them infor);																	// Ham cap phat Add moi
@@ -113,6 +117,6 @@ void addStudentFromFile(add a, list& b, base& c, string str);								// Them sin
 void clearAdd(add& a);																		// Lam rong Result
 
 //								DANH CHO STUDENT
-void viewListCourse(logstu a, board b, list c, string tk);									// Xem danh sach khoa hoc
+void viewListCourse(logstu a, board b, result c, string tk);								// Xem danh sach khoa hoc
 void viewScore(logstu a, result b, string tk);												// Xem diem trong khoa hoc
 void registerCourse(logstu& a, list& b, result& c, string str, string cid, string tk);		// Ham dang ky khoa hoc

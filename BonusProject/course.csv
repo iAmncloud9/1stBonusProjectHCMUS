@@ -1,6 +1,1 @@
-Name,Course ID,Number of Credits,Class,Day Start,Day End,Time Start,Time End,Day of Week,Maximum Student,Teacher,Room
-Calculus,VTP,3,22CTT2,10/3/2023,15/6/2023,12:30,16:00,Monday,50,Nguyen Tien Dat,D.103
-ProTech,CSC,3,22CTT2,10/3/2023,25/6/2023,7:30,11:00,Saturday,50,Nguyen Le Hoang Dung,E.105
-Physical,THD,3,22MT2,1/1/2023,6/6/2023,7:30,9:30,Monday,50,Do Chon,F.103
-CN Va MT,MTH,3,22SH2,16/3/2023,30/5/2023,12:30,15:30,Tuesday,50,Le Cong Man,D.103
-Calculus 2,VTP2,3,22CTT2,12/5/2023,24/8/2023,7:30,11:00,Tuesday,50,Pham Thuong,E.204
+Name,Course ID,Number of Credits,Class,Day Start,Day End,Time Start,Time End,Day of Week,Maximum Student,Number of Student,Teacher,Room

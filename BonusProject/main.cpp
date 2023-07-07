@@ -9,12 +9,12 @@ using namespace std;
 int main() {
 	int a = 1;
 	int op;
-	node ds = new Node();
-	logstu doc = new Login();
-	list stu = new List();
-	base cla = new Base();
-	board course = new Board();
-	result score = new Result();
+	node ds = NULL;
+	logstu doc = NULL;
+	list stu = NULL;
+	base cla = NULL;
+	board course = NULL;
+	result score = NULL;
 	add input = NULL;
 	int checklogin;
 	string tk, mk;
@@ -29,10 +29,6 @@ int main() {
 			system("cls");
 			sta_menu();
 			while (a) {
-				f.open("staff.csv", ios::in);
-				readAllFileStaff(f, ds);
-				f.close();
-				clearNode(ds);
 				choose(op);
 				switch (op) {
 				case 1:														// 1.1. Login
@@ -76,10 +72,6 @@ int main() {
 										while (a) {
 											choose(op);
 											switch (op) {
-												f.open("class.csv", ios::in);
-												readFileClass(f, cla);
-												f.close();
-												clearBase(cla);
 											case 1:											// 1.1.2.1.1. Create New Class
 												system("cls");
 												f.open("class.csv", ios::in);
@@ -111,10 +103,6 @@ int main() {
 											case 2:											// 1.1.2.1.2. My Class
 												system("cls");
 												in_class_sta_menu();
-												f.open("class.csv", ios::in);
-												readFileClass(f, cla);
-												f.close();
-												clearBase(cla);
 												while (a) {
 													system("cls");
 													f.open("class.csv", ios::in);
@@ -178,10 +166,6 @@ int main() {
 														f.open("class.csv", ios::in);
 														readFileClass(f, cla);
 														f.close();
-														f.open("list_student.csv", ios::in);
-														readFileStudent(f, stu);
-														f.close();
-														clearList(stu);
 														if (reClass(cla, str)) {
 															if (firstYearStu(cla, str)) {
 																clearBase(cla);
@@ -211,7 +195,6 @@ int main() {
 																		update_class_sta_menu();
 																		break;
 																	case 2:								// 1.1.2.1.2.3.2. Add Student From File
-																		// Them sinh vien theo file
 																		f.open("add_student.csv", ios::in);
 																		readFileAdd(f, input);
 																		f.close();
@@ -237,7 +220,6 @@ int main() {
 																		break;
 																	case 3:									// 1.1.2.1.2.3.3. Back
 																		a = 0;
-																		clearBase(cla);
 																		system("cls");
 																		in_class_sta_menu();
 																		break;
@@ -260,7 +242,6 @@ int main() {
 															cout << endl << endl << "CAN'T FIND THIS CLASS." << endl;
 															system("pause");
 														}
-														clearBase(cla);
 														a = 1;
 														break;
 													case 4:										// 1.1.2.1.2.4. Back
@@ -270,7 +251,6 @@ int main() {
 														break;
 													default:
 														cout << endl << endl << "INVALID REQUEST. PLEASE TRY AGAIN!" << endl;
-														clearBase(cla);
 														system("pause");
 														system("cls");
 														in_class_sta_menu();
@@ -298,10 +278,6 @@ int main() {
 										system("cls");
 										course_sta_menu();
 										while (a) {
-											f.open("course.csv", ios::in);
-											readFileCourse(f, course);
-											f.close();
-											clearBoard(course);
 											choose(op);
 											switch (op) {
 											case 1:											// 1.1.2.2.1. Create New Course														
@@ -319,14 +295,6 @@ int main() {
 												break;
 											case 2:											// 1.1.2.2.2. List Course
 												system("cls");
-												f.open("course.csv", ios::in);
-												readFileCourse(f, course);
-												f.close();
-												clearBoard(course);
-												f.open("student_score.csv", ios::in);
-												readFileScore(f, score);
-												f.close();
-												clearResult(score);
 												while (a) {
 													f.open("course.csv", ios::in);
 													readFileCourse(f, course);
@@ -344,7 +312,7 @@ int main() {
 														f.open("course.csv", ios::in);
 														readFileCourse(f, course);
 														f.close();
-														if(reCourse(course, str, p)) {
+														if (reCourse(course, str, p)) {
 															f.open("student_score.csv", ios::in);
 															readFileScore(f, score);
 															f.close();
@@ -372,10 +340,6 @@ int main() {
 														if (reCourse(course, str, p)) {
 															system("cls");
 															update_course_sta_menu();
-															f.open("list_student.csv", ios::in);
-															readFileStudent(f, stu);
-															f.close();
-															clearList(stu);
 															while (a) {
 																choose(op);
 																switch (op) {
@@ -405,7 +369,7 @@ int main() {
 																	break;
 																case 2:									// 1.1.2.2.2.1.2. Update Student Result
 																	cin.ignore();
-																	cout << endl  << "ENTER STUDENT ID: "; getline(cin, name);
+																	cout << endl << "ENTER STUDENT ID: "; getline(cin, name);
 																	f.open("student_score.csv", ios::in);
 																	readFileScore(f, score);
 																	f.close();
@@ -430,28 +394,27 @@ int main() {
 																case 3:									// 1.1.2.2.2.1.3. Remove Student
 																	cin.ignore();
 																	cout << endl << "ENTER STUDENT ID: "; getline(cin, name);
-																	f.open("list_student.csv", ios::in);
-																	readFileStudent(f, stu);
-																	f.close();
 																	f.open("student_score.csv", ios::in);
 																	readFileScore(f, score);
 																	f.close();
+																	f.open("student.csv", ios::in);
+																	readAllFileStudent(f, doc);
+																	f.close();
 																	if (checkStuInCourse(score, str, p, name)) {
-																		removeStudent(score, str, p, name);
-																		removeStudentFromCourse(stu, str, p, name);
-																		g.open("list_student.csv", ios::out);
-																		outputStudentinFile(g, stu);
-																		g.close();
+																		removeStudentFromCourse(score, doc, str, p, name);
 																		g.open("student_score.csv", ios::out);
 																		outputFileScore(g, score);
+																		g.close();
+																		g.open("student.csv", ios::in);
+																		ouputFileStudent(g, doc);
 																		g.close();
 																		cout << endl << endl << "REMOVE STUDENT SUCCESSFULLY." << endl;
 																	}
 																	else {
 																		cout << endl << endl << "CAN'T FIND THIS STUDENT." << endl;
 																	}
-																	clearList(stu);
 																	clearResult(score);
+																	clearLogin(doc);
 																	system("pause");
 																	system("cls");
 																	update_course_sta_menu();
@@ -486,7 +449,7 @@ int main() {
 														readFileCourse(f, course);
 														f.close();
 														if (reCourse(course, str, p)) {
-															deleteCourse(course, str);
+															deleteCourse(course, str, p);
 															g.open("course.csv", ios::out);
 															outputFileCourse(g, course);
 															g.close();
@@ -662,14 +625,6 @@ int main() {
 								system("cls");
 								in_course_stu_menu();
 								while (a) {
-									f.open("course.csv", ios::in);
-									readFileCourse(f, course);
-									f.close();
-									clearBoard(course);
-									f.open("student.csv", ios::in);
-									readAllFileStudent(f, doc);
-									f.close();
-									clearLogin(doc);
 									choose(op);
 									switch (op) {
 									case 1:												// 2.1.2.1. Register Course
@@ -679,10 +634,6 @@ int main() {
 										f.close();
 										outputCourse(course);
 										cout << endl << endl << endl << endl;
-										f.open("student_score.csv", ios::in);
-										readFileScore(f, score);
-										f.close();
-										clearResult(score);
 										cin.ignore();
 										cout << endl << "SELECT COURSE: "; getline(cin, str);
 										cout << "ENTER COURSE ID: "; getline(cin, p);
@@ -725,13 +676,13 @@ int main() {
 										f.open("student.csv", ios::in);
 										readAllFileStudent(f, doc);
 										f.close();
-										f.open("list_student.csv", ios::in);
-										readFileStudent(f, stu);
+										f.open("student_score.csv", ios::in);
+										readFileScore(f, score);
 										f.close();
-										viewListCourse(doc, course, stu, tk);
+										viewListCourse(doc, course, score, tk);
 										clearBoard(course);
 										clearLogin(doc);
-										clearList(stu);
+										clearResult(score);
 										system("pause");
 										system("cls");
 										in_course_stu_menu();
@@ -746,12 +697,11 @@ int main() {
 										f.close();
 										cout << endl;
 										viewScore(doc, score, tk);
-										system("pause");
 										clearLogin(doc);
 										clearResult(score);
 										system("pause");
 										system("cls");
-										in_course_stu_menu();	
+										in_course_stu_menu();
 										break;
 									case 4:												// 2.1.2.4. Back
 										a = 0;
@@ -828,9 +778,12 @@ int main() {
 					f.open("student.csv", ios::in);
 					readAllFileStudent(f, doc);
 					f.close();
+					f.open("student_score.csv", ios::in);
+					readFileScore(f, score);
+					f.close();
 					cout << setw(68) << "**********REGISTER**********" << endl;
 					p = "Student";
-					registerStudentAccount(doc, stu, cla, p);
+					registerStudentAccount(doc, stu, cla, score, p);
 					g.open("student.csv", ios::out);
 					ouputFileStudent(g, doc);
 					g.close();
@@ -840,6 +793,7 @@ int main() {
 					clearLogin(doc);
 					clearList(stu);
 					clearBase(cla);
+					clearResult(score);
 					break;
 				case 3:														// 2.3. Back
 					a = 0;
